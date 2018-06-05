@@ -1,0 +1,334 @@
+<style>
+    #radioBtn .notActive {
+        color: #3276b1;
+        background-color: #fff;
+        width: 70px;
+    }
+</style>
+<script>
+    $('#radioBtn a').on('click', function () {
+        var sel = $(this).data('title');
+        var tog = $(this).data('toggle');
+        $('#' + tog).prop('value', sel);
+        $('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active').addClass('notActive');
+        $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive').addClass('active');
+    })
+</script>
+<div ng-app="exact" ng-controller="stampController">
+    <div ng-include="'view/menu.html'">
+    </div>
+    <div class="title-form">
+        <h4>Stamp</h4>
+    </div>
+    <div class="row" style="margin-left: 2px;">
+        <div class="form-group">
+            <div class="col-sm-2 col-md-7">
+                <div class="input-group">
+                    <div id="radioBtn" class="btn-group">
+                        <a data-toggle="tab" class="btn btn-primary btn-sm active" data-toggle="modal" data-target="#dariku" data-title="Y">Dariku</a>
+                        <a data-toggle="tab" class="btn btn-primary btn-sm notActive" data-toggle="modal" data-target="#untukku" data-title="N">Untukku</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content">
+        <div id="dariku" class="tab-pane fade in active">
+            <div class="form-group-custom col-sm-2">
+                <select class="form-control form-control-custom" ng-init="getParamCari()" style="font-size: 12px;" ng-model="kolom">
+                    <option value="">Semua</option>
+                    <option ng-repeat="paramKirim in paramKirim" value="{{paramKirim.NAMA_KOLOM}}">{{paramKirim.DESKRIPSI}}</option>
+                </select>
+            </div>
+            <div class="col-sm-4 no-padding">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-custom" placeholder="Enter text" ng-model="cari" ng-enter="getDataKiriman()">
+                        <div class="input-group-btn">
+                            <button class="btn btn-normal" ng-click="getDataKiriman()">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-custom col-sm-2">
+                <select class="form-control form-control-custom" style="font-size: 12px;" ng-model="status">
+                    <option value="">Semua</option>
+                    <option value="BUAT">Buat</option>
+                    <option value="KIRIM">Kirim</option>
+                    <option value="BATAL">Batal</option>
+                    <option value="EXPIRED">Expired</option>
+                </select>
+            </div>
+            <button ui-sref="stamp" class="btn-orange2" style="float: right;margin-right: 3px;">TAMBAH</button>
+            <section class="table-dashboard-wrap">
+                <table ng-init="getStampDariku()" style="margin-top: 50px;">
+                    <thead>
+                        <tr>
+                            <th>No Stamp</th>
+                            <th>Type</th>
+                            <th>Asal</th>
+                            <th>Pengirim</th>
+                            <th>No Order</th>
+                            <th>Tujuan</th>
+                            <th>Berat</th>
+                            <th>Day +</th>
+                            <th>Biaya</th>
+                            <th>Info</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="ku in DataStampDariku" style="font-size:12px;">
+                            <td ng-click="getDetailDariku(ku.DETAIL_STAMP)">
+                                <u>{{ku.NO_STAMP}}</u>
+                            </td>
+                            <td>{{ku.TIPE}}</td>
+                            <td>{{ku.ASAL}}</td>
+                            <td>{{ku.PENGIRIM}}</td>
+                            <td>{{ku.NO_ORDER}}</td>
+                            <td>{{ku.TUJUAN}}</td>
+                            <td>{{ku.TOTAL_BERAT}} Kg</td>
+                            <td>{{ku.DAY_PLUS}}</td>
+                            <td>{{ku.PEMBAYARAN}}</td>
+                            <td>{{ku.INFO_TAMBAHAN}}</td>
+                            <td>
+                                <p class="btn btn-block btn-sm btn-warning">{{ku.STATUS}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="clearfix"></div>
+            </section>
+            <section class="content-bottom-wrap">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-title width-100-smallscreen">
+                    <p>
+                        <span class="color-green">1</span> dari
+                        <span class="color-green">40</span> halaman</p>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 width-100-smallscreen">
+                    <div class="pagination-db">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="active">1</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">2</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">3</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">4</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">5</a>
+                            </li>
+                            <li class="border-right-gray">
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <div class="clearfix"></div>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </section>
+        </div>
+        <div id="untukku" class="tab-pane fade">
+            <div class="form-group-custom col-sm-2">
+                <select class="form-control form-control-custom" ng-init="getParamCari()" style="font-size: 12px;" ng-model="kolom">
+                    <option value="">Semua</option>
+                    <option ng-repeat="paramKirim in paramKirim" value="{{paramKirim.NAMA_KOLOM}}">{{paramKirim.DESKRIPSI}}</option>
+                </select>
+            </div>
+            <div class="col-sm-4 no-padding">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-custom" placeholder="Enter text" ng-model="cari" ng-enter="getDataKiriman()">
+                        <div class="input-group-btn">
+                            <button class="btn btn-normal" ng-click="getDataKiriman()">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-custom col-sm-2">
+                <select class="form-control form-control-custom" style="font-size: 12px;" ng-model="status">
+                    <option value="">Semua</option>
+                    <option value="BUAT">Buat</option>
+                    <option value="KIRIM">Kirim</option>
+                    <option value="BATAL">Batal</option>
+                    <option value="EXPIRED">Expired</option>
+                </select>
+            </div>
+            <!--                    <button ui-sref="stamp" class="btn-orange2" style="float: right;margin-right: 3px;">TAMBAH</button>-->
+            <section class="table-dashboard-wrap">
+                <table class="table table-striped" ng-init="getStampUntukku()">
+                    <thead>
+                        <tr>
+                            <th>No Stamp</th>
+                            <th>Tanggal</th>
+                            <th>Pembuat</th>
+                            <th>Tujuan</th>
+                            <th>No Order</th>
+                            <th>Berat</th>
+                            <th>Biaya</th>
+                            <th>Info</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="ku in DataStampUntukku" style="font-size:12px;">
+                            <td ng-click="getDetailUntukku(ku.ID_REFERENSI)">
+                                <u>{{ku.NO_STAMP}}</u>
+                            </td>
+                            <td>{{ku.TANGGAL_BUAT}}</td>
+                            <td>{{ku.ASAL}}</td>
+                            <td>{{ku.TUJUAN}}</td>
+                            <td>{{ku.TANGGAL_BUAT}}</td>
+                            <td>{{ku.BERAT}} Kg</td>
+                            <td>{{ku.PEMBAYARAN}}</td>
+                            <td>{{ku.INFO_TAMBAHAN}}</td>
+                            <td>
+                                <p class="btn btn-block btn-sm btn-warning">{{ku.STATUS}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="clearfix"></div>
+            </section>
+            <section class="content-bottom-wrap">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-title width-100-smallscreen">
+                    <p>
+                        <span class="color-green">1</span> dari
+                        <span class="color-green">40</span> halaman</p>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 width-100-smallscreen">
+                    <div class="pagination-db">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="active">1</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">2</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">3</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">4</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">5</a>
+                            </li>
+                            <li class="border-right-gray">
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <div class="clearfix"></div>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </section>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- START KIRIM STAMP DARIKU -->
+<div id="kirimStamp" class="modal fade" role="dialog" ng-app="exact" ng-controller="stampController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Kirim Stamp Dariku</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">No Stamp</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-custom" id="idStamp" ng-model="idStamp" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">No Ponsel</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-custom" id="noPonsel" ng-model="noPonsel" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Nama Penerima</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-custom" id="namaPenerima" ng-model="namaPenerima" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Kode Pos</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control form-control-custom" id="kodePos" ng-model="kodePos" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Jumlah Paket</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control form-control-custom" id="jumlah" ng-model="jumlah" disabled>
+                        </div>
+                    </div>
+                    <div id="divberat">
+                        <div class="form-group" id="berat1">
+                            <label class="control-label col-sm-3">Berat 1</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-custom" id="berat_1" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group" id="berat2">
+                            <label class="control-label col-sm-3">Berat 2</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-custom" id="berat_2" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group" id="berat3">
+                            <label class="control-label col-sm-3">Berat 3</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-custom" id="berat_3" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group" id="berat4">
+                            <label class="control-label col-sm-3">Berat 4</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-custom" id="berat_4" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-custom" style="margin-top: 10px;margin-bottom: 10px;">
+                        <label class="control-label col-sm-3"></label>
+                        <div class="col-lg-4">
+                            <button class="btn-orange2 width-100 margin-top-15-sm btn-block" data-dismiss="modal">BATAL</button>
+                        </div>
+                        <div class="col-lg-4">
+                            <button class="btn-orange2 width-100 margin-top-15-sm btn-block" ng-click="kirimStamp()">KIRIM</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

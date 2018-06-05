@@ -1,0 +1,217 @@
+<div ng-app="exact" ng-controller="alihInvoiceController">
+    <div ng-include="'view/menu.html'">
+    </div>
+    <div class="title-form pull-left">
+        <h4>Pengalihan Invoice</h4>
+    </div>
+    <div class="scrollbar-dynamic">
+        <section class="table-dashboard-wrap">
+            <div class="form-group-custom col-sm-2">
+                <select class="form-control form-control-custom" ng-init="getParamCari()" style="font-size: 12px;" ng-model="kolom">
+                    <option value="">Semua</option>
+                    <option ng-repeat="paramKirim in paramKirim" value="{{paramKirim.NAMA_KOLOM}}">{{paramKirim.DESKRIPSI}}</option>
+                </select>
+            </div>
+            <div class="col-sm-4 no-padding">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-custom" placeholder="Enter text" ng-model="cari">
+                        <div class="input-group-btn">
+                            <button class="btn btn-normal" ng-click="getDataKiriman()">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-custom col-sm-2">
+                <select class="form-control form-control-custom" style="font-size: 12px;" ng-model="status">
+                    <option value="">Semua</option>
+                </select>
+            </div>
+            <div>
+                <button ng-click="add()" class="btn-orange2" style="float: right;margin-right: 3px;">TAMBAH</button>
+            </div>
+            <table wt-responsive-table>
+                <thead>
+                    <tr>
+                        <th>
+                            Nama Perusahaan
+                        </th>
+                        <th>
+                            Kota/Kab
+                        </th>
+                        <th>
+                            Kode POS
+                        </th>
+                        <th>
+                            Bagian Invoice
+                        </th>
+                        <th>
+                            Kontak
+                        </th>
+                        <th>
+                            Mulai
+                        </th>
+                        <th>
+                            Akhir
+                        </th>
+                    </tr>
+                </thead>
+                <tbody ng-init="getListAlihInvoice()">
+                    <tr ng-repeat="data in listAlihInvoice" style="font-size: 12px;" ng-click="edit(data)">
+                        <td>{{data.NAMA_KORP_KUASA}}</td>
+                        <td>{{data.KOTA}}</td>
+                        <td>{{data.KODE_POS}}</td>
+                        <td>{{data.BAGIAN_INVOICE}}</td>
+                        <td>{{data.NO_TELP_KORP_KUASA}}</td>
+                        <td>{{data.TANGGAL_MULAI}}</td>
+                        <td>{{data.TANGGAL_AKHIR}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clearfix"></div>
+    </div>
+    <section class="content-bottom-wrap">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-title width-100-smallscreen">
+            <p>
+                <span class="color-green">1</span> dari
+                <span class="color-green">40</span> halaman</p>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 width-100-smallscreen">
+            <div class="pagination-db">
+                <ul>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="active">1</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">2</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">3</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">4</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">5</a>
+                    </li>
+                    <li class="border-right-gray">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+
+    <!-- MODAL TOPUP -->
+    <div id="tambah" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">ALIH INVOICE</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="formtambah">
+                        <div class="form-group form-control-custom">
+                            <label class="control-label col-sm-3">Bagian Invoice</label>
+                            <div class="col-sm-8" ng-init="getListBagInvoice()">
+                                <select class="form-control form-control-custom" id="kuasainvoice" style="font-size: 12px;" ng-model="kuasainvoice" required>
+                                    <option value="" disabled="true">Pilih</option>
+                                    <option ng-repeat="listBagInvoice in listBagInvoice" value="{{listBagInvoice.ID_BAGIAN_INVOICE}}">{{listBagInvoice.NAMA}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">
+                            <label class="control-label col-sm-3">Corp Code</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" id="kodecorpinvoice" ng-model="kodecorpinvoice" required>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">
+                            <label class="control-label col-sm-3"></label>
+                            <div class="col-sm-8">        
+                                <button class="btn-orange2 btn-block" style="float: left;" ng-click="checkUserCorp()">PERIKSA</button>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">
+                            <label class="control-label col-sm-3">Perusahaan</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" ng-model="namaperusahaan" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">
+                            <label class="control-label col-sm-3">Nama Usaha</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" ng-model="namausaha" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">
+                            <label class="control-label col-sm-3">Alamat</label>
+                            <div class="col-sm-8">          
+                                <textarea type="text" class="form-control form-control-custom" cols="3" ng-model="alamat" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">
+                            <label class="control-label  col-sm-3 col-form-label">Kode POS</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control form-control-custom" ng-model="kodepos" disabled>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-custom" ng-model="kota" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">
+                            <label class="control-label col-sm-3">Pemberi Kuasa</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" ng-model="pemberikuasa" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">
+                            <label class="control-label col-sm-3">No Telepon</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" ng-model="telepon" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">    
+                            <label class="control-label col-sm-3">Tanggal Mulai</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control form-control-custom" ng-model="tanggalmulai" required>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="control-label col-sm-3">Akhir</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control form-control-custom" ng-model="tanggalakhir" required>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 10px;margin-top: 10px;">    
+                            <label class="control-label col-sm-3"></label>
+                            <div class="col-sm-3">
+                                <button class="btn-orange2" style="float: left;">HAPUS</button>
+                            </div>
+                            <div class="col-sm-5">
+                                <button class="btn-orange2" style="float: right;" ng-click="postAlihInvoice()">SIMPAN</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

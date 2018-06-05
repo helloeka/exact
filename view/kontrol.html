@@ -1,0 +1,206 @@
+<div ng-app="exact" ng-controller="kontrolController">
+    <div ng-include="'view/menu.html'">
+    </div>
+    <div class="title-form">
+        <h4>Kontrol</h4>
+    </div>
+    <div class="form-group-custom col-sm-2">
+        <select class="form-control form-control-custom" ng-init="getParamCari()" style="font-size: 12px;" ng-model="kolom">
+            <option value="">Semua</option>
+            <option ng-repeat="paramKirim in paramKirim" value="{{paramKirim.NAMA_KOLOM}}">{{paramKirim.DESKRIPSI}}</option>
+        </select>
+    </div>
+    <div class="col-sm-3 no-padding">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" class="form-control form-control-custom" placeholder="Enter text" ng-model="cari" ng-enter="getListKontrol()">
+                <div class="input-group-btn">
+                    <button class="btn btn-normal" ng-click="getListKontrol()">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-custom col-sm-2">
+        <select class="form-control form-control-custom" style="font-size: 12px;" ng-model="status">
+            <option value="">Semua</option>
+            <option value="1">Pickup</option>
+            <option value="2">Transport</option>
+            <option value="3">Delivery</option>
+            <option value="4">Diterima</option>
+        </select>
+    </div>
+    <div class="form-group-custom col-sm-4">
+        <div class="col-sm-6 no-padding">
+            <input type="date" class="form-control form-control-custom" value="{{date| date:'yyyy-MM-dd'}}" style="font-size: 12px;">
+        </div>
+        <div class="col-sm-6 no-padding">
+            <input type="date" class="form-control form-control-custom" value="{{date| date:'yyyy-MM-dd'}}" id="DateTo" style="font-size: 12px;">
+        </div>
+    </div>
+    <div>
+        <button ui-sref="#" class="btn-orange2" style="float: right;margin-right: 3px;">PRINT</button>
+    </div>
+    <section class="table-dashboard-wrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        No Kiriman
+                    </th>
+                    <th>
+                        Asal
+                    </th>
+                    <th>
+                        Tujuan
+                    </th>
+                    <th>
+                        No Order
+                    </th>
+                    <th>
+                        Penerima
+                    </th>
+                    <th>
+                        No Ponsel
+                    </th>
+                    <th>
+                        PCS
+                    </th>
+                    <th>
+                        Berat
+                    </th>
+                    <th style="width: 150px;">
+                        Progress
+                    </th>
+                </tr>
+            </thead>
+            <div class="scrollbar-dynamic">
+                <tbody ng-init="getListKontrol()">
+                    <tr ng-repeat="p in dataKontrol | filter:status | filter :cari | startFrom:currentPage * pageSize | limitTo:pageSize" ui-sref="track({_nokiriman:p.ID_REFERENSI})">
+                        <td>
+                            <u>{{p.ID_REFERENSI}}</u>
+                        </td>
+                        <td>{{p.KOTA_ASAL}}</td>
+                        <td>{{p.KOTA_TUJUAN}}</td>
+                        <td>{{p.NO_ORDER}}</td>
+                        <td>{{p.NAMA_USER_PENERIMA}}</td>
+                        <td>{{p.NO_HP_PENERIMA}}</td>
+                        <td>{{p.PCS}}</td>
+                        <td>{{p.BERAT}} /Kg</td>
+                        <td hidden="true">{{p.STATUS}}</td>
+                        <td id="status">
+                            <div class="row">
+                                <div class="col-sm-2 no-padding" id="status1">
+                                    <a href="#" title="Pickup">
+                                        <image src="assets/img/{{p.img1}}" style="width:25px;">
+                                    </a>
+                                </div>
+                                <div class="col-sm-1 no-padding">
+                                    <image src="assets/img/arrow.png" style="width:10px;">
+                                </div>
+                                <div class="col-sm-2 no-padding" id="status2">
+                                    <a href="#" title="Transport">
+                                        <image src="assets/img/{{p.img2}}" style="width:25px;">
+                                    </a>
+                                </div>
+                                <div class="col-sm-1 no-padding">
+                                    <image src="assets/img/arrow.png" style="width:10px;">
+                                </div>
+                                <div class="col-sm-2 no-padding" id="status3">
+                                    <a href="#" title="Delivery">
+                                        <image src="assets/img/{{p.img3}}" style="width:25px;">
+                                    </a>
+                                </div>
+                                <div class="col-sm-1 no-padding">
+                                    <image src="assets/img/arrow.png" style="width:10px;">
+                                </div>
+                                <div class="col-sm-2 no-padding" id="status4">
+                                    <a href="#" title="Diterima">
+                                        <image src="assets/img/{{p.img4}}" style="width:25px;">
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </div>
+        </table>
+        <div class="clearfix"></div>
+    </section>
+    <section class="content-bottom-wrap">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-title width-100-smallscreen">
+            <div style="margin-top: 10px;">
+                Jumlah Baris
+                <select style="background-color: transparent;border: 0px;" ng-model="pageSize" id="pageSize" ng-init="pageSize">
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="200">100</option>
+                    <option value="500">500</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 width-100-smallscreen">
+            <div class="pagination-db">
+                <ul>
+                    <li>
+                        <a id="prevPage" ng-click="prevPage()">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a>{{currentPage+1}}/{{numberOfPages()}}</a>
+                    </li>
+                    <li class="border-right-gray">
+                        <a id="nextPage" ng-click="nextPage()">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+</div>
+<!-- START DETAIL KIRIMAN -->
+<div id="detail" class="modal fade" role="dialog" ng-controller="kontrolController">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Detail Kiriman</h5>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover table-dashboard-wrap">
+                    <thead>
+                        <tr>
+                            <th>
+                                Lokasi
+                            </th>
+                            <th>
+                                Tanggal
+                            </th>
+                            <th>
+                                Jam
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Keterangan 1
+                            </th>
+                            <th>
+                                Keterangan 2
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabledetail">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

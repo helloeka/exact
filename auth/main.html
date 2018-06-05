@@ -1,0 +1,581 @@
+<!-- custom js -->
+<script src="assets/controller/custom.js"></script>
+<style>
+    .headerDivider-login {
+        border-left: 1px solid green;
+        height: 400px;
+    }
+</style>
+<section class="section-group-vh">
+    <div class="intro">
+        <div class="content-group">
+            <header class="section" >
+                
+                <!-- <div class="container">
+                    <div class="phone"></div>
+                </div> -->
+                <div class="header-wrap">
+                    <!-- Navigation -->
+                    <div class="container-fuid menu-wrap">
+                        <div class="container">
+                                <nav class="navbar navbar-exact">
+                                        <!-- Brand and toggle get grouped for better mobile display -->
+                                        <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                        <div class="intro-logo">
+                                            <a href="#">
+                                                <div class="logo"></div>
+                                            </a>
+                                        </div>
+                                        </div>
+
+                                        <div class="collapse navbar-collapse" id="collapse" ng-controller="loginController">
+                                        <ul class="nav navbar-nav menu-exact">
+                                                <li><a ui-sref="join">Partnerships</a></li>
+                                                <li><a data-toggle="modal" data-target="#myPenawaran">Minta Penawaran</a></li>
+                                                <li><a >Bantuan</a></li>
+                                        </ul>
+                                        
+                                        <ul class="nav navbar-nav navbar-right menu-exact-right" ng-controller="loginController">
+                                            <li id="menu-login">
+                                                <a  ng-click="getBarcode()" class="btn-login" data-toggle="modal" data-target="#login">
+                                                    &nbsp;Login&nbsp;
+                                                </a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#" class="btn-download">
+                                                    Download App
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        </div><!-- /.navbar-collapse -->
+                                </nav>
+                        </div>
+                    </div>
+                    <!-- Search  -->
+                    <div class="search-wrap">
+                        <h1>Why Ship Online?</h1>
+                        <h2>easy, efficient, exact</h2>
+                        <button class="btn btn-exact-line" type="button" ui-sref="intro" >Learn More</button>
+                        <form>
+                            <div class="input-group search-custom">
+                                <input type="text" class="form-control form-custom" name="NoKiriman" ng-model="nokiriman" placeholder="No Kiriman">
+                                <button ui-sref="track({_nokiriman:nokiriman})" class="btn btn-search-custom" type="submit"><span class="icon-ico-search"></span></button>
+                            </div>
+                        </form>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- Benefit -->
+                    <div class="featured">
+                        <div class="container">
+                            <div class="benefit owl-carousel owl-theme">
+                                <div class="item">
+                                    <div class="item-featured">
+                                        <div class="col-lg-4 float-left" ng-controller="loginController">
+                                            <div class="ico-kirim"class="btn-login" data-toggle="modal" data-target="#myModal"></div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <h2>Kirim</h2>
+                                            <h3>Catat Mandiri</h3>
+                                            <p>Mudah, pelayanan pasti</p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="item-featured">
+                                        <a ui-sref="ongkir">
+                                            <div class="col-lg-4 float-left">
+                                                <div class="ico-ongkir"></div>
+                                            </div>
+                                        </a>
+                                        <div class="col-lg-8">
+                                            <h2>Ongkir</h2>
+                                            <h3>Harga final</h3>
+                                            <p>Dapatkan kombinasi discount saving</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="item-featured">
+                                        <a ui-sref="lokasi" >
+                                            <div class="col-lg-4 float-left">
+                                                <div class="ico-lokasi"></div>
+                                            </div>
+                                        </a>
+                                        <div class="col-lg-8">
+                                            <h2>Lokasi</h2>
+                                            <h3>Drop Off Point</h3>
+                                            <p>Mudah ditemukan, tanpa antri</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-black"></div>
+                    <div class="bg-fullpage"></div>
+                </div>
+            </header>
+            
+        </div>
+    </div>
+</section>
+<section class="section-group">
+    <!-- feature -->
+    <div class="container-fluid featured-wrap">
+            <div class=" featured-shipping">
+                <div class="line"></div>
+                <div class="featured-shipping-title">
+                    <h1>Make <span class="color-green">Your Shipping</span> Better</h1>
+                </div>
+            </div>
+            <div class="container">
+                <div class="benefit  owl-carousel owl-theme">
+                    <div class="item feature-item">
+                        <div class="ico-device"></div>
+                        <p>Total app base logistics services</p>
+                    </div>
+                    <div class="item feature-item">
+                        <div class="ico-cost"></div>
+                        <p>More weight less cost</p>
+                    </div>
+                    <div class="item feature-item">
+                        <div class="ico-date"></div>
+                        <p>Date & time delivery commitment</p>
+                    </div>
+                    <div class="item feature-item">
+                        <div class="ico-warning"></div>
+                        <p>Service failure warning system</p>
+                    </div>
+                </div>
+            </div>
+    </div>
+  
+    <div class="container-fluid testimonial-wrap">
+        <div class="container featured-shipping">
+            <div class="line-white"></div>
+            <div class="testimonial-title">
+                <h1>Testimonial</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="testimonial owl-carousel owl-theme">
+                <div class="item testimonial-item">
+                    <div class="avatar">
+                        <center><img src="dummy/avatar1.png"></center>
+                    </div>
+                    <div class="testimonil-text">
+                        <p>
+                            Nggak nyangka kalo nyatat kiriman pake my exact mobile itu mudah. Cuman pilih no hape penerima, masukin kode pos tujuan, catet berat kiriman, pilih kapan mau nyampenya, selesai! Ongkir dan nomor kiriman langsung ketahuan. Tidak perlu print!
+                        </p>
+                        <h3>Sunu Dioh</h3>
+                        <h4>Office Assistant</h4>
+                    </div>
+                </div>
+                <div class="item testimonial-item">
+                    <div class="avatar">
+                        <center><img src="dummy/avatar2.png"></center>
+                    </div>
+                    <div class="testimonil-text">
+                        <p>
+                            Nganter kiriman ke drop off point exact itu simple banget! Dekat, nggak pake antri, nggak nunggu entry data. Tinggal di scan dan bayar, selesai! Nggak sampe 1 menit beres! Bukti kirim langsung masuk ke handphone. Enggak perlu nympan kertas lagi.
+                        </p>
+                        <h3>Brama Kumbara</h3>
+                        <h4>Penjual online</h4>
+                    </div>
+                </div>
+                <div class="item testimonial-item">
+                    <div class="avatar">
+                        <center><img src="dummy/avatar3.png"></center>
+                    </div>
+                    <div class="testimonil-text">
+                        <p>
+                            Ternyata di exact ada jemputan gratis juga. Catat kiriman, klik pick-up, langsung di info kurirnya yang mana, ada foto dan lokasi kurir di google. Bukti pick-up juga otomatis masuk ke app setelah kiriman diambil  kurir, status kiriman langsung jadi pick-up! Nggak pake kertas-kertasan lagi.
+                        </p>
+                        <h3>Rini</h3>
+                        <h4>Penjual Online</h4>
+                    </div>
+                </div>
+                <div class="item testimonial-item">
+                    <div class="avatar">
+                        <center><img src="dummy/avatar1.png"></center>
+                    </div>
+                    <div class="testimonil-text">
+                        <p>
+                            Kontrol kiriman pakai app mobile my exact itu mudah, tinggal klik, semua status kiriman ter-update. Apalagi pake dashboard di website exact, bisa filter macam-macm. Kalo perlu komplain, tinggal klik! Nggak perlu pake telpon lagi. 
+                        </p>
+                        <h3>Thalhah Fahrizal</h3>
+                        <h4>GA. Manager</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid feature-bottom">
+        <div class="container">
+            <div class="col-lg-4 about-exact">
+                <center>
+                    <a href="#">
+                        <div class="logo"></div>
+                    </a>
+                </center>
+                <p>
+                    exact adalah "penyedia layanan logistics digital". exact berkomitment untuk
+                    memberikan layanan logistics on-line yang "memudahkan,efisien dan tepat" untuk
+                    kebutuhan usaha dan perorangan, sembari menumbuhkan ribuan usaha logistics baru melalui jaringan 
+                    partnerships exact.
+                </p>
+            </div>
+
+            <div class="col-lg-4 sitemap">
+                <h4>Sitemap</h4>
+                <ul>
+                    <li><a ui-sref="syarat" >Terms & conditions</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4 download">
+                <h4>Available App On</h4>
+                <h5>Android</h5>
+                <a href="#">
+                    <div class="btn-android"></div>
+                </a>
+                <h5>IOS</h5>
+                <a href="#">
+                    <div class="btn-ios"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+        
+    <footer class="container-fluid bg-green section fp-auto-height" >
+        <div class="container">
+            <div class="col-sm-8 col-lg-6 copyright">
+                <p>Copyright © PT Exact Quality Logistics 2017. All right reserved</p>
+            </div>
+            <div class="col-sm-4 col-lg-6">
+                <div class="social-network">
+                    <ul>
+                        <li><p>Join with us</p></li>
+                        <li><a href="#"><span class="icon-ico-facebook"></span></a></li>
+                        <li><a href="#"><span class="icon-ico-twitter"></span></a></li>
+                        <li><a href="#"><span class="icon-ico-google"></span></a></li>
+                        <div class="clearfix"></div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>
+
+
+
+<!-- Modal -->
+<div id="login" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <!--            <div class="modal-header">
+                         
+                            <h4>Exact Login</h4>
+                        </div>-->
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <br>
+                        <h4>
+                            Scan QR code menggunakan aplikasi myexact di smartphone anda
+                        </h4>
+                        <div style="position: relative;">
+                            <div id="barcode">
+
+                            </div>
+                            <img src="http://exact.co.id/x.png" style="width: 42px;height: 42px;left: 129px;position: absolute;top: 129px;z-index: 100px;background-color: #ffffff;border-radius: 0px;padding: 3px 3px 3px 3px;">
+                        </div>
+
+                    </div>
+                    <div class="col-sm-1 no-padding">
+                        <div class="headerDivider-login"></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div>
+                            <h4>Unduh aplikasi mobile myexact ke smartphone anda</h4>
+                        </div>
+                        <div class="col-lg-4 download no-padding">
+                            <h5>Android</h5>
+                            <a href="#">
+                                <div class="btn-android"></div>
+                            </a>
+                            <h5>IOS</h5>
+                            <a href="#">
+                                <div class="btn-ios"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModal" class="modal fade" role="dialog" ng-controller="loginController">
+    <div class="modal-dialog modal-login">
+        Modal content
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <center><div class="logo logo-login"></div></center>
+            <div class="form-login">
+                <form>
+                    <div class="input-group form-group">
+                        <span class="input-group-addon icon-login"><span class="icon-ico-username"></span></span>
+                        <input id="email" type="text" class="form-control form-custom" name="email" placeholder="Email" ng-model="email">
+                    </div>
+                    <div class="input-group form-group">
+                        <span class="input-group-addon icon-login"><span class="icon-ico-password"></span></span>
+                        <input id="password" type="password" class="form-control form-custom" name="password" placeholder="Password" ng-model="password">
+                    </div>
+                    <div>
+                        <button type="button"  class="btn btn-orange" data-dismiss="modal" ng-click="login()">Login</button>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+                <div class="forget">
+                    <a href="#" >Forgot Password?</a>
+                    <a href="#" class="float-right register">Register</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--        modal bisnis-->
+<div id="myPenawaran" class="modal fade" role="dialog" ng-controller="penawaranController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Minta Penawaran</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form class="form-horizontal">
+                        <div class="form-group form-group-custom">
+                            <label class="control-label col-sm-3">Nama Lengkap</label>
+                            <div class="col-sm-9">                              
+                                <input  type="text" class="form-control form-control-custom">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-custom">
+                            <label class="control-label col-sm-3">No Ponsel</label>
+                            <div class="col-sm-9">                              
+                                <input  type="text" class="form-control form-control-custom" maxlength="15">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-custom">
+                            <label class="control-label col-sm-3">Email</label>
+                            <div class="col-sm-9">                              
+                                <input  type="email" class="form-control form-control-custom">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-custom">
+                            <label class="control-label col-sm-3">Nama Perusahaan</label>
+                            <div class="col-sm-9">                              
+                                <input  type="text" class="form-control form-control-custom" placeholder="Bila perusahaan">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-custom">
+                            <label class="control-label col-sm-3">Badan Usaha</label>
+                            <div class="col-sm-9">
+                                <select class="form-control form-control-custom" style="font-size: 12px;" required>
+                                    <option>PT</option>
+                                    <option>CV</option>
+                                    <option>Prorangan</option>
+                                    <option>Koperasi</option>
+                                    <option>Lainnya</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-custom">
+                            <label class="control-label col-sm-3">Bidang Usaha</label>
+                            <div class="col-sm-9">                              
+                                <input  type="text" class="form-control form-control-custom">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-custom">
+                            <label class="control-label col-sm-3">Alamat</label>
+                            <div class="col-sm-9">                              
+                                <textarea  type="text" class="form-control form-control-custom" cols="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-custom">
+                            <label class="control-label  col-sm-3 col-form-label">Kode POS</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control form-control-custom" id="kodepos">
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group no-padding">
+                                    <input type="text" class="form-control form-control-custom" id="kota" disabled>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-normal" data-toggle="modal" data-target="#cari">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-custom">
+                            <label class="control-label col-sm-3">Guna Layanan</label>
+                            <div class="col-sm-9">
+                                <select class="form-control form-control-custom" style="font-size: 12px;" required>
+                                    <option>Personal</option>
+                                    <option>Usaha</option>
+                                    <option>Belanja Online</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-custom">
+                            <label class="control-label col-sm-3">Frekuensi Kirim</label>
+                            <div class="col-sm-9">
+                                <select class="form-control form-control-custom" style="font-size: 12px;" required>
+                                    <option>Dokumen</option>
+                                    <option>Paket</option>
+                                    <option>Freight</option>
+                                </select>
+                            </div>
+                        </div>                     
+                        <div class="form-group form-group-custom">
+                            <label class="control-label col-sm-3">Tipe Kiriman</label>
+                            <div class="col-sm-9">
+                                <select class="form-control form-control-custom" style="font-size: 12px;" required>
+                                    <option>Dokumen</option>
+                                    <option>Paket</option>
+                                    <option>Freight</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-custom">
+                            <label class="control-label col-sm-3">Logistics Saat Ini</label>
+                            <div class="col-sm-9">
+                                <select class="form-control form-control-custom" style="font-size: 12px;" required>
+                                    <option>JNE</option>
+                                    <option>TIKI</option>
+                                    <option>Lainnya</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-custom">
+                            <label class="control-label col-sm-3">Keterangan</label>
+                            <div class="col-sm-9">                              
+                                <textarea  type="text" class="form-control form-control-custom" cols="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3"></label>
+                            <div class="col-sm-9">
+                                <div class="checkbox checkbox-custom">
+                                    <label>
+                                        <input type="checkbox" value="">
+                                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                        <a href="#">Syarat & Ketentuan berlaku</a>
+                                    </label>
+                                </div>   
+                            </div>
+                        </div>
+                        <div class="form-group"> 
+                            <label class="control-label col-sm-3"></label>
+                            <div class="col-sm-9">
+                                <label ></label>
+                                <button class="btn-orange2" style="float: right;" ng-click="mintaPenawaran()">MINTA PENAWARAN</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--////////////////////// END /////////////////////////-->
+<div id="cari" class="modal fade" role="dialog" >
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Cari Alamat atau Kota Tujuan</h5>
+            </div>
+            <div class="modal-body">
+                <form >
+                    <div class="form-group col-sm-13">
+                        <input type="text" id="carikodepos" class="form-control form-control-custom">
+                    </div>  
+                    <div id="map"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var postcode;
+    var kota;
+    var options = {
+    types: ['address'],
+            componentRestrictions: {country:'id'}
+    };
+    function initMap() {
+    var input = document.getElementById('carikodepos');
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    //autocomplete.bindTo('bounds', map);
+//    autocomplete.setTypes(["address"]);
+    autocomplete.addListener('place_changed', function () {
+    var place = autocomplete.getPlace();
+//    alert(place.)
+    if (!place.geometry) {
+    // User entered the name of a Place that was not suggested and
+    // pressed the Enter key, or the Place Details request failed.
+    window.alert("No details available for input: '" + place.name + "'");
+    return;
+    }
+    var address = '';
+    if (place.address_components) {
+    address = [
+            (place.address_components[6] && place.address_components[6].short_name ||
+                    '')
+    ].join(' ');
+    }
+    //hasil disini
+
+    var postalcode = place.address_components[6];
+    postcode = postalcode.long_name;
+    kota = place.address_components[3].long_name;
+    getPost();
+    });
+    } //initMap
+
+    function getPost() {
+    var de = document.getElementById('kodepos').value = postcode;
+    var kotaresult = document.getElementById('kota').value = kota;
+    }
+    $('#carikodepos').keypress(function (e) {
+    var key = e.which;
+    if (key == 13)  // the enter key code
+    {
+    $('#cari').modal('hide');
+    }
+    });</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuw58UaCdvgQb-X0rpZpQFVxsO45L7cpk&libraries=places&callback=initMap"
+async defer></script>
+
+

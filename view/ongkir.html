@@ -1,0 +1,147 @@
+<!-- custom js -->
+<script src="assets/controller/custom.js"></script>
+<div class="side-collapse-container" ng-app="exact" style="margin-top: 0px;" ng-controller="ongkirController">
+    <section class="content-menu-top scrollbar">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-left">
+            <section class="table-dashboard-wrap" ng-init="getLocalKota()">
+                <div class="title-form-h1">
+                    <h4>Hitung Ongkir</h4>
+                </div>
+                <div class="form-group-custom col-sm-2 no-padding">
+                    <input type="text" ng-model="item.title" id="kotaasal" list="comicstitle" class="form-control form-control-custom" ng-enter="getKota()" ng-tab="getKota()"/>
+                </div>
+                <datalist id="comicstitle">
+                    <option  data-ng-repeat="ttl in titles" value="{{ttl.KOTA}}"> 
+                </datalist>
+                <div class="form-group-custom col-sm-5">
+                    <div class="form-group-custom col-sm-4">
+                        <input type="text" class="form-control form-control-custom" id="kodepos" ng-model="kodepos" ng-keyup="checkKodePos()" ng-tab="checkKodePos()" ng-enter="checkKodePos()" placeholder="Kode POS">
+                    </div>
+                    <div class="col-sm-8 no-padding">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-custom" placeholder="Kota" id="kota" ng-model="kotatujuan" disabled>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-normal" data-toggle="modal" data-target="#cari">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group-custom col-sm-1">
+                    <input type="text" class="form-control form-control-custom" placeholder="Berat" ng-model="berat" ng-tab="getZonaOngkir()">
+                </div>
+                <div class="form-group-custom col-sm-2">
+                    <div class="form-group-custom col-sm-4 no-padding">
+                        <input type="text" class="form-control form-control-custom" placeholder="P">
+                    </div>
+                    <div class="form-group-custom col-sm-4 no-padding">
+                        <input type="text" class="form-control form-control-custom" placeholder="L">
+                    </div>
+                    <div class="form-group-custom col-sm-4 no-padding">
+                        <input type="text" class="form-control form-control-custom" placeholder="T">
+                    </div>
+                </div>
+                <div>
+                    <button class="btn-orange2" style="float: right;margin-right: 3px;" ng-click="hitungOngkir()"> MUAT</button>
+                </div>
+                <table wt-responsive-table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Produk
+                            </th>
+                            <th>
+                                Waktu Kirim
+                            </th>
+                            <th style="text-align: right;">
+                                Ongkir Cash/ Invoice
+                            </th>
+                            <th style="text-align: right;">
+                                Ongkir Saving
+                            </th>
+                            <th style="text-align: right;">
+                                Biaya Tambahan
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="ongkir-service">
+                    </tbody>
+                </table>
+                <div class="clearfix"></div>
+            </section>
+        </div>
+    </section>
+</div>
+<!--////////////////////// END /////////////////////////-->
+<div id="cari" class="modal fade" role="dialog" ng-app="exact" ng-controller="kirimController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Cari Alamat atau Kota Tujuan</h5>
+            </div>
+            <div class="modal-body">
+                <form >
+                    <div class="form-group col-sm-13">
+                        <input type="text" id="carikodepos" class="form-control form-control-custom">
+                    </div>  
+                    <div id="map"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var postcode;
+    var kota;
+    var options = {
+    types: ['address'],
+            componentRestrictions: {country:'id'}
+    };
+    function initMap() {
+    var input = document.getElementById('carikodepos');
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    //autocomplete.bindTo('bounds', map);
+//    autocomplete.setTypes(["address"]);
+    autocomplete.addListener('place_changed', function () {
+    var place = autocomplete.getPlace();
+//    alert(place.)
+    if (!place.geometry) {
+    // User entered the name of a Place that was not suggested and
+    // pressed the Enter key, or the Place Details request failed.
+    window.alert("No details available for input: '" + place.name + "'");
+    return;
+    }
+    var address = '';
+    if (place.address_components) {
+    address = [
+            (place.address_components[6] && place.address_components[6].short_name ||
+                    '')
+    ].join(' ');
+    }
+    //hasil disini
+
+    var postalcode = place.address_components[6];
+    postcode = postalcode.long_name;
+    kota = place.address_components[3].long_name;
+    getPost();
+    });
+    } //initMap
+
+    function getPost() {
+    var de = document.getElementById('kodepos').value = postcode;
+    var kotaresult = document.getElementById('kota').value = kota;
+    }
+    $('#carikodepos').keypress(function (e) {
+    var key = e.which;
+    if (key == 13)  // the enter key code
+    {
+    $('#cari').modal('hide');
+    }
+    });</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr3NS3Tb_taWdVqNQFSTJ5TlvvhN9gV08&libraries=places&callback=initMap"
+async defer></script>

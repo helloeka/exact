@@ -1,0 +1,329 @@
+<div ng-app="exact" ng-controller="kirimController">
+    <div ng-include="'view/menu.html'">
+    </div>
+    <div class="title-form">
+        <h4>Kirim</h4>
+    </div>
+    <div class="form-group-custom col-sm-2">
+        <select class="form-control form-control-custom" ng-init="getParamCari()" style="font-size: 12px;" ng-model="kolom">
+            <option value="">Semua</option>
+            <option ng-repeat="paramKirim in paramKirim" value="{{paramKirim.NAMA_KOLOM}}">{{paramKirim.DESKRIPSI}}</option>
+        </select>
+    </div>
+    <div class="col-sm-4 no-padding">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" class="form-control form-control-custom" placeholder="Enter text" ng-model="cari" ng-enter="getDataKiriman()">
+                <div class="input-group-btn">
+                    <button class="btn btn-normal" ng-click="getDataKiriman()">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-custom col-sm-2">
+        <select class="form-control form-control-custom" style="font-size: 12px;" ng-model="bayar">
+            <option value="">Semua</option>
+            <option value="COD">COD</option>
+            <option value="STAMP">Stamp</option>
+            <option value=",">Cash</option>
+            <option value="INVOICE">Invoice</option>
+            <option value="SAVING">Saving</option>
+        </select>
+    </div>
+    <div>
+        <button title="Buat Kiriman" ui-sref="kirim" class="btn-orange2" style="float: right;margin-right: 3px;">KIRIM</button>
+        <button title="Open Delivery" ui-sref="opd" class="btn-orange2" style="float: right;margin-right: 3px;">OPD</button>
+        <button title="Kirim Massal" ui-sref="/" class="btn-orange2" style="float: right;margin-right: 3px;">MASSAL</button>
+        <button title="Dangerous Goods" ui-sref="/" class="btn-orange2" style="float: right;margin-right: 3px;">DGS</button>
+    </div>
+    <section class="table-dashboard-wrap">
+        <table class="table" ng-init="getDataKiriman()">
+            <thead>
+                <tr>
+                    <th>
+                        No Kiriman
+                    </th>
+                    <th>
+                        Pengguna
+                    </th>
+                    <th>
+                        Tujuan
+                    </th>
+                    <th>
+                        No Order
+                    </th>
+                    <th>
+                        Penerima
+                    </th>
+                    <th>
+                        Phone
+                    </th>
+                    <th>
+                        PCS
+                    </th>
+                    <th>
+                        Berat
+                    </th>
+                    <th>
+                        Pembayaran
+                    </th>
+                </tr>
+            </thead>
+            <div class="scrollbar-dynamic">
+                <tbody>
+                    <tr title="Double Click Show Detail" ng-repeat="p in DataKirim | filter :cari |filter :bayar | startFrom:currentPage * pageSize | limitTo:pageSize"
+                        ng-dblclick="showDetailKiriman(p)">
+                        <td>{{p.ID_REFERENSI}}</td>
+                        <td>{{p.PENGGUNA}}</td>
+                        <td>{{p.TUJUAN}}</td>
+                        <td>{{p.NO_ORDER}}</td>
+                        <td>{{p.PENERIMA}}</td>
+                        <td>{{p.NO_HP_PENERIMA}}</td>
+                        <td>{{p.PCS}}</td>
+                        <td>{{p.TOTAL_BERAT}}</td>
+                        <td>{{p.TIPE_PEMBAYARAN}}</td>
+                    </tr>
+                </tbody>
+            </div>
+        </table>
+        <div class="clearfix"></div>
+    </section>
+    <section class="content-bottom-wrap">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-title width-100-smallscreen">
+            <div style="margin-top: 10px;">
+                Jumlah Baris
+                <select style="background-color: transparent;border: 0px;" ng-model="pageSize" id="pageSize" ng-init="pageSize">
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="200">100</option>
+                    <option value="500">500</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 width-100-smallscreen">
+            <div class="pagination-db">
+                <ul>
+                    <li>
+                        <a id="prevPage" ng-click="prevPage()">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a>{{currentPage+1}}/{{numberOfPages()}}</a>
+                    </li>
+                    <li class="border-right-gray">
+                        <a id="nextPage" ng-click="nextPage()">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+</div>
+<!-- START DETAIL KIRIMAN -->
+<div id="detailKirimanold" class="modal fade" role="dialog" ng-controller="kirimController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Detail Kiriman</h5>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <tbody class="tbl-product" id="tabledetail">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="detailKiriman" class="modal fade" ng-app="exact" ng-controller="kirimController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Detail Kiriman</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="row no-padding">
+                            <div class="col-sm-6">
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Tgl Kirim</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control-custom read2" id="tanggalkirim" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Pengguna</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control-custom read2" id="pengguna" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Produk</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control-custom read2" id="produk" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Pembayaran</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control-custom read2" id="pembayaran" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Total COD</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control-custom read2" id="totalcod" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Janji Tiba</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control-custom read2" id="janjitiba" ng-model="janjitiba" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Service</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control-custom read2" id="service" ng-model="service" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">PCS</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control-custom read2" id="pcs" ng-model="pcs" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Berat</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control-custom read2" id="berat" ng-model="berat" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding" style="margin-top: 0px;">
+                            <div class="col-sm-12">
+                                <div class="title-form-h1">
+                                    <h1>PENERIMA</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Nama</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control-custom read2" id="namapenerima" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Perusahaan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control-custom read2" id="perusahaanpenerima" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Alamat</label>
+                            <div class="col-sm-10">
+                                <textarea type="text" class="form-control-custom read2" id="alamatpenerima" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2 col-form-label">Kode POS</label>
+                            <div class="col-sm-2 no-padding-right">
+                                <input type="text" class="form-control-custom read2" id="kodepospenerima" disabled>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control-custom read2" id="kotapenerima" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">No Telp</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control-custom read2" id="notlppenerima" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding" style="margin-top: 0px;">
+                            <div class="col-sm-12">
+                                <div class="title-form-h1">
+                                    <h1>PENGIRIM</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Nama</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control-custom read2" id="namapengirim" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Perusahaan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control-custom read2" id="perusahaanpengirim" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Alamat</label>
+                            <div class="col-sm-10">
+                                <textarea type="text" class="form-control-custom read2" id="alamatpengirim" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2 col-form-label">Kode POS</label>
+                            <div class="col-sm-2 no-padding-right">
+                                <input type="text" class="form-control-custom read2" id="kodepospengirim" disabled>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control-custom read2" id="kotapengirim" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">No Telp</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control-custom read2" id="notlppengirim" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <div class="col-sm-12">
+                                <button class="btn btn-orange2" style="float:right;" ng-click="rePrint()">Re-print Label</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Reprint-->
+<div id="reprint" class="modal fade" role="dialog" ng-controller="kirimController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Reprint</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <table class="table table-hover" id="table-reprint">
+                    </table>
+                    <div class="col-sm-12">
+                        <button class="btn btn-orange2" style="float:right;" ng-click="postRePrint()">Re-print</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

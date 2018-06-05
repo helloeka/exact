@@ -1,0 +1,238 @@
+<div ng-app="exact" ng-controller="bukuAlamatController">
+    <div ng-include="'view/menu.html'">
+    </div>
+    <div class="title-form pull-left">
+        <h4>Buku Alamat</h4>
+    </div>
+    <div class="scrollbar-dynamic">
+        <section class="table-dashboard-wrap">
+            <div class="form-group-custom col-sm-2" ng-init="getParamCari()">
+                <select class="form-control form-control-custom" ng-init="getParamCari()" style="font-size: 12px;" ng-model="kolom">
+                    <option value="">Semua</option>
+                    <option ng-repeat="param in paramcari" value="{{param.NAMA_KOLOM}}">{{param.DESKRIPSI}}</option>
+                </select>
+            </div>
+            <div class="col-sm-4 no-padding">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-custom" placeholder="Enter text" ng-model="cari" ng-enter="getListAlamat()">
+                        <div class="input-group-btn">
+                            <button class="btn btn-normal" ng-click="getListAlamat()">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button ng-click="add()" class="btn-orange2" style="float: right;margin-right: 3px;">TAMBAH</button>
+            </div>
+            <table wt-responsive-table>
+                <thead>
+                    <tr>
+                        <th>
+                            Nama Perusahaan
+                        </th>
+                        <th>
+                            Nama
+                        </th>
+                        <th>
+                            Phone
+                        </th>
+                        <th>
+                            Kode Pos
+                        </th>
+                        <th>
+                            Kota
+                        </th>
+                    </tr>
+                </thead>
+                <tbody ng-init="getListAlamat()">
+                    <tr style="font-size: 12px;" ng-repeat="data in listBukuAlamat" ng-click="edit(data)">
+                        <td>{{data.NAMA_PERUSAHAAN_BUKU}}</td>
+                        <td>{{data.NAMA_KONTAK}}</td>
+                        <td>{{data.NO_HP}}</td>
+                        <td>{{data.KODE_POS_KONTAK}}</td>
+                        <td>{{data.NAMA_KOTA}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clearfix"></div>
+    </div>
+    <section class="content-bottom-wrap">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-title width-100-smallscreen">
+            <p>
+                <span class="color-green">1</span> dari
+                <span class="color-green">40</span> halaman</p>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 width-100-smallscreen">
+            <div class="pagination-db">
+                <ul>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="active">1</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">2</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">3</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">4</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">5</a>
+                    </li>
+                    <li class="border-right-gray">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+
+    <!-- MODAL TOPUP -->
+    <div id="tambah" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">BUKU ALAMAT</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="formtambah">
+                        <div class="form-group form-control-custom">
+                            <label class="control-label col-sm-3">Perusahaan</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" id="namaperusahaan" ng-model="namaperusahaan" required>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">
+                            <label class="control-label col-sm-3">Nama Kontak</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" id="namakontak" ng-model="namakontak" required>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">
+                            <label class="control-label col-sm-3">No Ponsel/Tlpn</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" ng-model="noponsel" maxlength="15" required>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">
+                            <label class="control-label  col-sm-3 col-form-label">Kode POS</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control form-control-custom" id="kodepos" ng-model="kodepos" ng-keyup="getPostCode()" ng-tab="getPostCode()" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-custom" placeholder="Kota" ng-model="kota" id="kota" disabled>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-normal" data-toggle="modal" data-target="#cari" >
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-control-custom">
+                            <label class="control-label col-sm-3">Alamat</label>
+                            <div class="col-sm-8">          
+                                <textarea type="text" class="form-control form-control-custom" ng-model="alamat" ng-click="getPostCode()" ng-tab="getPostCode()" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 10px;margin-top: 10px;">    
+                            <label class="control-label col-sm-3"></label>
+                            <div class="col-sm-3">
+                                <button class="btn-orange2" style="float: left;">HAPUS</button>
+                            </div>
+                            <div class="col-sm-5">
+                                <button class="btn-orange2" style="float: right;" ng-click="postBukuAlamat()">SIMPAN</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cari" class="modal fade" role="dialog" ng-app="exact">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">Masukan Alamt atau nama jalan</h5>
+                </div>
+                <div class="modal-body">
+                    <form >
+                        <div class="form-group col-sm-13">
+                            <input type="text" id="carikodepos" class="form-control form-control-custom">
+                        </div>  
+                        <div id="map"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var postcode;
+        var kota;
+        var options = {
+        types: ['address'],
+                componentRestrictions: {country:'id'}
+        };
+        function initMap() {
+        var input = document.getElementById('carikodepos');
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        //autocomplete.bindTo('bounds', map);
+        //    autocomplete.setTypes(["address"]);
+        autocomplete.addListener('place_changed', function () {
+        var place = autocomplete.getPlace();
+        //    alert(place.)
+        if (!place.geometry) {
+        // User entered the name of a Place that was not suggested and
+        // pressed the Enter key, or the Place Details request failed.
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
+        }
+        var address = '';
+        if (place.address_components) {
+        address = [
+                (place.address_components[6] && place.address_components[6].short_name ||
+                        '')
+        ].join(' ');
+        }
+        //hasil disin
+        var postalcode = place.address_components[6];
+        postcode = postalcode.long_name;
+        kota = place.address_components[3].long_name;
+        getPost();
+        });
+        } //initMap
+
+        function getPost() {
+        var de = document.getElementById('kodepos').value = postcode;
+        var kotaresult = document.getElementById('kota').value = kota;
+        }
+        $('#carikodepos').keypress(function (e) {
+        var key = e.which;
+        if (key == 13)  // the enter key code
+        {
+        $('#cari').modal('hide');
+        }
+        });</script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr3NS3Tb_taWdVqNQFSTJ5TlvvhN9gV08&libraries=places&callback=initMap"
+    async defer></script>

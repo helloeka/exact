@@ -1,0 +1,247 @@
+<!-- custom js -->
+<script src="assets/controller/custom.js"></script>
+<section id="fullpage"  ng-app="exact">
+    <section class="section fp-auto-height">
+        <div class="container-fluid">
+            <nav class=" navbar-custom">
+                <div class="side-collapse in" ng-controller="indexController">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-2">
+                        <div class="overlay-block"></div>
+                        <div class="navbar-header">
+                            <button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle-custom pull-left">
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                            </button>
+                            <a ng-click="index()">
+                                <div class="logo"></div>
+                            </a>
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                </div>
+            </nav
+        </div>
+    </section>
+    <div class="container-fluid">
+        <section class="content-menu-top scrollbar" ng-controller="lokasiController" ng-init="getDop()">
+            <div class="title-form-h1" style="background-color: #A5CB42;color: #fff;">
+                <h1>&nbsp;&nbsp;&nbsp;&nbsp;Drop Of Point</h1>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4 no-padding-right">
+                    <section class="table-dashboard-wrap">
+                        <div class="col-sm-12 no-padding">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-custom" placeholder="Masukan nomer DOP" ng-model="cari" ng-enter="getDataKiriman()">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-normal" ng-click="getDop()">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <style>
+                            .zoom {
+                                transition: transform .5s;
+                                -webkit-transition: all .5s;
+                                -moz-transition: all .5s;
+                                -o-transition: all .5s;
+                                transition: all .5s;
+                                width: 50px;
+                                height: 50px;
+                            }
+                            .zoom:hover {
+                                width: 100%;
+                                height: 200px;
+                                margin-bottom: 10px;
+                            }
+                        </style>
+                        <table class="table-custom">
+                            <tbody>
+                                <tr ng-repeat="dataDop in dataDop| filter:cari">
+                                    <td data-toggle="collapse" href="#banner" style="width: 500px;">
+                                        <div>
+                                            <img  src="{{dataDop.GAMBAR}}" class="zoom">
+                                        </div>                  
+                                        <b>{{dataDop.NAMA_DOP}}</b>
+                                        <p>{{dataDop.ALAMAT_DOP}}</p>
+                                        <p> Telp : {{dataDop.NO_TELP}}</p>
+                                        <p> Jam Buka : {{dataDop.JAM_BUKA}}</p>
+                                        <p> Jam Tutup : {{dataDop.JAM_TUTUP}}</p>
+                                        <p> Jarak : {{dataDop.JARAK| number:1}} Km</p>
+                                        <div>
+                                            <button id={{dataDop.ACTIVE}} class="btn btn-default" style="width: 100px;background-color: {{dataDop.ACTIVE}};color: white;">{{dataDop.ACTIVE_NAME}}</button>
+                                            <button class="btn btn-default" style="width: 150px;" >{{dataDop.IS_FREIGHT}}</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="clearfix"></div>
+                    </section>
+                </div>
+                <div class="col-sm-8 no-padding-left">
+                    <style>
+                        #map {
+                            height: 490px;
+                            width: 100%;
+                            margin-left: 10px;
+                        }
+                        /* Optional: Makes the sample page fill the window. */
+                        html, body {
+                            height: 100%;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        #description {
+                            font-family: Roboto;
+                            font-size: 15px;
+                            font-weight: 300;
+                        }
+
+                        #infowindow-content .title {
+                            font-weight: bold;
+                        }
+
+                        #infowindow-content {
+                            display: none;
+                        }
+
+                        #map #infowindow-content {
+                            display: inline;
+                        }
+
+                        .pac-card {
+                            margin: 10px 10px 0 0;
+                            border-radius: 2px 0 0 2px;
+                            box-sizing: border-box;
+                            -moz-box-sizing: border-box;
+                            outline: none;
+                            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                            background-color: #fff;
+                            font-family: Roboto;
+                        }
+
+                        #pac-container {
+                            padding-bottom: 12px;
+                            margin-right: 12px;
+                        }
+
+                        .pac-controls {
+                            display: inline-block;
+                            padding: 5px 11px;
+                        }
+
+                        .pac-controls label {
+                            font-family: Roboto;
+                            font-size: 13px;
+                            font-weight: 300;
+                        }
+
+                        #pac-input {
+                            background-color: #fff;
+                            font-family: Roboto;
+                            font-size: 15px;
+                            font-weight: 300;
+                            margin-left: 10px;
+                            padding: 0 11px 0 13px;
+                            text-overflow: ellipsis;
+                            width: 500px;
+                        }
+
+                        #pac-input:focus {
+                            border-color: #4d90fe;
+                        }
+
+                        #title {
+                            color: #fff;
+                            background-color: #4d90fe;
+                            font-size: 25px;
+                            font-weight: 500;
+                            padding: 6px 12px;
+                        }
+                        #target {
+                            width: 345px;
+                        }
+                    </style>
+                    <section class="table-dashboard-wrap">
+                        <form class="form-horizontal no-padding">
+                            <input id="pac-input" class="control form-control-custom" type="text" placeholder="Cari alamat /nama kota" ng-enter="getDop()">
+                            <div id="map"></div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="title-form-h1 container">
+
+    </div>
+    <!-- bottom feature -->
+    <section class="section fp-auto-height">
+        <div class="container-fluid feature-bottom">
+            <div class="container">
+                <div class="col-lg-4 about-exact">
+                    <center>
+                        <a ng-click="index()">
+                            <div class="logo"></div>
+                        </a>
+                    </center>
+                    <p>
+                        exact adalah "penyedia layanan logistics digital". exact berkomitment untuk
+                        memberikan layanan logistics on-line yang "memudahkan,efisien dan tepat" untuk
+                        kebutuhan usaha dan perorangan, sembari menumbuhkan ribuan usaha logistics baru melalui jaringan 
+                        partnerships exact.
+                    </p>
+                </div>
+
+                <div class="col-lg-4 sitemap">
+                    <h4>Sitemap</h4>
+                    <ul>
+                        <li><a ui-sref="syarat">Terms & conditions</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Help</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 download">
+                    <h4>Available App On</h4>
+                    <h5>Android</h5>
+                    <a href="#">
+                        <div class="btn-android"></div>
+                    </a>
+                    <h5>IOS</h5>
+                    <a href="#">
+                        <div class="btn-ios"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- footer -->
+    <footer class="container-fluid bg-green section fp-auto-height" >
+        <div class="container">
+            <div class="col-sm-8 col-lg-6 copyright">
+                <p>Copyright © PT Exact Quality Logistics 2017. All right reserved</p>
+            </div>
+            <div class="col-sm-4 col-lg-6">
+                <div class="social-network">
+                    <ul>
+                        <li><p>Join with us</p></li>
+                        <li><a href="#"><span class="icon-ico-facebook"></span></a></li>
+                        <li><a href="#"><span class="icon-ico-twitter"></span></a></li>
+                        <li><a href="#"><span class="icon-ico-google"></span></a></li>
+                        <div class="clearfix"></div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>
+<!-- Replace the value of the key parameter with your own API key. -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr3NS3Tb_taWdVqNQFSTJ5TlvvhN9gV08&libraries=places&callback=initAutocomplete">
+</script>

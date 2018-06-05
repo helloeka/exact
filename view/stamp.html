@@ -1,0 +1,501 @@
+<!-- custom js -->
+<script src="assets/controller/custom.js"></script>
+<div class="side-collapse-container" ng-app="exact" ng-controller="stampController" ng-init="initStamp()">
+    <section>
+        <form name="stamp-form">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-left">
+                <div class="form-group-custom" ng-init="getTipeStamp()">
+                    <label>Tipe Stamp</label>
+                    <select class="form-control form-control-custom" ng-model="tipeStamp" ng-change="clickStamp()" style="font-size: 12px;" required>
+                        <option value="" disabled>-- Pilih tipe stamp --</option>
+                        <option ng-repeat="tipe in listStamp" value="{{tipe.ID_JENIS_STAMP}}">{{tipe.NAMA_JENIS_STAMP}}</option>
+                    </select>
+                </div>
+                <div id="divNoKiriman">
+                    <div class="form-group-custom">
+                        <label>No Kiriman</label>
+                        <input type="text" class="form-control input-sm form-control-custom" placeholder="No Kiriman" ng-model="noKiriman" required>
+                    </div>
+                    <button class="btn-green width-100 margin-top10" ng-click="checkNomerKiriman()">Cek Nomer Kiriman</button>
+                </div>
+                <!--                        detail stamp-->
+                <div id="divDetailStamp1">
+                    <div class="title-form-h1">
+                        <h1>1. Infromasi Data Penerima Stamp</h1>
+                    </div>
+                    <div class="form-group-custom">
+                        <label>Tipe Pengirim</label>
+                        <select class="form-control form-control-custom" ng-model="tipePengirim" style="font-size: 12px;" ng-click="clickTipe()"
+                            required>
+                            <option value="" disabled>-- Pilih tipe Pengirim --</option>
+                            <option value="P">Perorangan</option>
+                            <option value="U">Usaha</option>
+                        </select>
+                    </div>
+                    <div id="divcorp">
+                        <div class="form-group-custom">
+                            <label>No Ponsel/ Kode Business-Corporate</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control input-sm form-control-custom" ng-model="tipecode">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-orange2" ng-click="checkCodeUser()">
+                                        CHECK
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-custom">
+                            <label>Nama Business/ Corporate</label>
+                            <input type="text" ng-model="kodePrusahaan" hidden/>
+                            <input type="text" class="form-control input-sm form-control-custom" ng-model="namaCorp" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group-custom" id="divNoPonsel">
+                        <label>No Ponsel</label>
+                        <input type="text" class="form-control input-sm form-control-custom" ng-model="noPonselPenerima">
+                    </div>
+                    <div class="form-group-custom">
+                        <label>Kota Asal</label>
+                        <input type="text" ng-model="idKota" hidden/>
+                        <input type="text" ng-model="kotaAsal" id="kotaasal" list="comicstitle" class="form-control form-control-custom" ng-keyup="getKota()"/>
+                    </div>
+                    <datalist id="comicstitle">
+                        <option data-ng-repeat="ttl in titles" value="{{ttl.KOTA}}">
+                    </datalist>
+                    <div class="title-form-h1">
+                        <h1>2. Tujuan Kirim</h1>
+                    </div>
+                    <div class="form-group-custom">
+                        <label>No Order</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm form-control-custom" placeholder="Nomer Order" ng-model="noOrder">
+                            <div class="input-group-btn">
+                                <button class="btn btn-orange2">
+                                    CHECK
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="divPos">
+                        <div class="col-sm-3">
+                            <div class="form-group-custom">
+                                <label>Kode Pos Tujuan</label>
+                                <input type="text" class="form-control input-sm form-control-custom" id="kodepos" ng-keyup="getPostCode ()" placeholder="Kode Pos"
+                                    ng-model="kodepos" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="form-group-custom">
+                                <label>Kota Tujuan</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-custom" placeholder="Kota Tujuan" ng-model="kota" id="kota" disabled>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-normal" data-toggle="modal" data-target="#cari">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divdetailcorp">
+                        <div class="form-group-custom">
+                            <label>Nama Penerima</label>
+                            <input type="text" class="form-control input-sm form-control-custom" ng-model="namaPenerima" required>
+                        </div>
+                        <div class="form-group-custom">
+                            <label>No Ponsel/ Telp</label>
+                            <input type="text" class="form-control input-sm form-control-custom" ng-model="noPonselTujuan">
+                        </div>
+                    </div>
+                    <div id="divPenerima">
+                        <!-- <div class="form-group-custom">
+                            <label>Nama Penerima</label>
+                            <input type="text" class="form-control input-sm form-control-custom"  placeholder="Nama Penerima" ng-model="namaPenerima" ng-click="checkPostcode()" required>
+                        </div>
+                        <div class="form-group-custom">
+                            <label>No Ponsel/Telp Penerima</label>
+                            <input type="text" class="form-control input-sm form-control-custom"  placeholder="No Ponsel (+62)" ng-model="noPonsel" required>
+                        </div> -->
+                        <div class="form-group-custom">
+                            <label>Alamat</label>
+                            <textarea class="form-control form-control-textarea-custom" rows="2" ng-model="alamat" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-right">
+                <div id="divDetailStamp2">
+                    <div class="title-form-h1">
+                        <h1>3. Jumlah & Berat Paket</h1>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 no-padding">
+                        <div class="form-group-custom padding-left-15">
+                            <label>Jumlah Paket</label>
+                            <select class="form-control form-control-custom" style="font-size: 12px;" ng-model="jumlahPaket" ng-click="onJumlah()" ng-change="onJumlah()"
+                                required>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 no-padding">
+                        <div class="form-group-custom margin-left-15">
+                            <label>Berat</label>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-3 col-md-3 col-lg-3 no-padding">
+                                <input type="number" class="form-control input-sm form-control-custom" id="berat1" placeholder="0" ng-model="berat1" ng-change="checkVolume()"
+                                    min="0" max={{max}}>
+                            </div>
+                            <fieldset>
+                                <div class="col-sm-4 no-padding" id="berat2">
+                                    <input type="number" class="form-control input-sm form-control-custom" placeholder="0" ng-model="berat2" ng-change="checkVolume()"
+                                        min="0" max="35">
+                                </div>
+                                <div class="col-sm-4 no-padding" id="berat3">
+                                    <input type="number" class="form-control input-sm form-control-custom" placeholder="0" ng-model="berat3" ng-change="checkVolume()"
+                                        min="0" max="35">
+                                </div>
+                                <div class="col-sm-4 no-padding" id="berat4">
+                                    <input type="number" class="form-control input-sm form-control-custom" placeholder="0" ng-model="berat4" ng-change="checkVolume()"
+                                        min="0" max="35">
+                                </div>
+                            </fieldset>
+                        </div>
+                        <label id="beratInfo" style="font-size: 10px;color: red;font-style: italic;"> Berat tiap paket Max 35 Kg!</label>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 no-padding">
+                        <div class="form-group-custom" style="margin-left: 5px;">
+                            <label>Total /Kg</label>
+                            <input type="text" class="form-control input-sm form-control-custom" placeholder="0" ng-model="jumlah_berat" disabled>
+                        </div>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 no-padding" id="btnVolume">
+                        <div class="form-group-custom">
+                            <label> Volume</label>
+                            <button class="btn-green-ico width-100" data-toggle="modal" data-target="#volume">
+                                <span class="ico-volume"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- <div class="title-form-h1">
+                        <h1>3. Total Berat Paket</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group-custom">
+                                <label>Berat</label>
+                                <input type="number" min="1" class="form-control input-sm form-control-custom"  placeholder="0" ng-model="berat">
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="form-group-custom" ng-init="getCategory()">
+                        <label>Kategori Isi Kiriman</label>
+                        <select class="form-control form-control-custom" ng-model="kategoriKiriman" ng-change="selCategory()" style="font-size: 12px;">
+                            <option value="" selected disabled>Please select</option>
+                            <option ng-repeat="category in DataCategory" value="{{category}}">{{category.NAMA_KATEGORI}} &nbsp;&nbsp; ( Persentase Biaya Caharger ={{category.PERSENTASE_BIAYA_CHARGES}}
+                                )
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group-custom" id="divBemasukStamp">
+                        <label>Nilai Bea Cukai Kiriman</label>
+                        <input type="text" class="form-control input-sm form-control-custom" placeholder="Bila non Dokumen" ng-model="nilaiBeaCukai">
+                    </div>
+                    <div class="title-form-h1">
+                        <h1>4. Product & Services</h1>
+                    </div>
+                    <button class="btn-green width-100 margin-top10" ng-click="showProduct()">Pilih Tanggal Tiba - Produk </button>
+                </div>
+                <div class="title-form-h1">
+                    <h1>5. Isi Kiriman</h1>
+                </div>
+                <div class="form-group-custom" id="divIsiKiriman">
+                    <label>Isi Kiriman</label>
+                    <input type="text" class="form-control input-sm form-control-custom" placeholder="Bila produk udara" ng-model="isiKiriman">
+                </div>
+                <div class="form-group-custom" id="divInvoice" ng-init="getBangInvoice()">
+                    <label>Bagian Invoice</label>
+                    <select class="form-control form-control-custom" ng-model="bagInvoice" style="font-size: 12px;">
+                        <option value="" selected disabled>Please select</option>
+                        <option ng-repeat="baginv in DataBagInvoice" value="{{baginv.ID}}">{{baginv.EMAIL}}</option>
+                    </select>
+                </div>
+                <div class="form-group-custom">
+                    <label>Info Tambahan</label>
+                    <input type="text" class="form-control input-sm form-control-custom" ng-model="infoTambahan" placeholder="Info tambahan">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+                <div class="caption">Tempelkan Label Kiriman di paket yang sesuai</div>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                <button class="btn-orange2 width-100 margin-top-15-sm" ng-click="postStamp()">BUAT STAMP</button>
+            </div>
+        </form>
+    </section>
+</div>
+<!--                        START MODAL VOLUME-->
+<div id="volume" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Volume</h5>
+            </div>
+            <div class="modal-body">
+                <div id="volume">
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 no-padding" id="volume1">
+                        <div class="form-group form-group-custom margin-left-15">
+                            <label>Volume 1</label>
+                            <div class="clearfix"></div>
+                            <fieldset>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                                    <input type="text" class="form-control form-control-custom" placeholder="P" ng-model="panjang1" id="panjang1" min="0">
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                                    <input type="text" class="form-control form-control-custom" placeholder="L" ng-model="lebar1" id="lebar1" min="0">
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                                    <input type="text" class="form-control form-control-custom" placeholder="T" ng-model="tinggi1" id="tinngi1" min="0">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 no-padding" id="volume2">
+                        <div class="form-group form-group-custom margin-left-15">
+                            <label>Volume 2</label>
+                            <div class="clearfix"></div>
+                            <fieldset>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                                    <input type="text" class="form-control form-control-custom" placeholder="P" ng-model="panjang2" id="panjang2" min="0">
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                                    <input type="text" class="form-control form-control-custom" placeholder="L" ng-model="lebar2" id="lebar2" min="0">
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                                    <input type="text" class="form-control form-control-custom" placeholder="T" ng-model="tinggi2" id="tinggi2" min="0">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 no-padding" id="volume3">
+                        <div class="form-group form-group-custom margin-left-15">
+                            <label>Volume 3</label>
+                            <div class="clearfix"></div>
+                            <fieldset>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                                    <input type="text" class="form-control form-control-custom" placeholder="P" ng-model="panjang3" id="panjang3" min="0">
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                                    <input type="text" class="form-control form-control-custom" placeholder="L" ng-model="lebar3" id="lebar3" min="0">
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                                    <input type="text" class="form-control form-control-custom" placeholder="T" ng-model="tinggi3" id="tinngi3" min="0">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 no-padding" id="volume4">
+                        <div class="form-group form-group-custom margin-left-15">
+                            <label>Volume 4</label>
+                            <div class="clearfix"></div>
+                            <fieldset>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                                    <input type="text" class="form-control form-control-custom" placeholder="P" ng-model="panjang4" id="panjang4" min="0">
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                                    <input type="text" class="form-control form-control-custom" placeholder="L" ng-model="lebar4" id="lebar4" min="0">
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                                    <input type="text" class="form-control form-control-custom" placeholder="T" ng-model="tinggi4" id="tinngi4" min="0">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-orange2" data-dismiss="modal">OK </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--                        END MODAL VOLUME-->
+
+<!--MODAL FOR STAMP-->
+<div id="detailReturn" class="modal fade" role="dialog" ng-controller="kirimController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Detail Kiriman</h5>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover respsonsive">
+                    <tbody class="tbl-product" id="tableReturn">
+                    </tbody>
+                </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">SIMPAN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--MODAL PRODUK-->
+<div id="myProduk" class="modal fade" ng-app="exact" role="dialog" ng-controller="kirimController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Pilih Produk</h5>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-heigth">
+                        <tbody id="header-product" class="tbody-heigth">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END MODAL PRODUK-->
+<div id="service" class="modal fade" role="dialog" ng-app="exact" ng-controller="kirimController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Pilih Services</h5>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-heigth">
+                        <tbody class="tbody-heigth" id="product-service">
+
+                        </tbody>
+                    </table>
+                    <div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-orange2" ng-click="closeService()">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL EXPRESS -->
+<div id="cari" class="modal fade" role="dialog" ng-app="exact" ng-controller="kirimController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Cari kota /alamat tujuan</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group col-sm-13">
+                        <input type="text" id="carikodepos" class="form-control form-control-custom">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END MODAL EXPRESS -->
+<script>
+    var options = {
+        types: ['address'],
+        componentRestrictions: { country: 'id' }
+    };
+    function initMap() {
+        var input = document.getElementById('carikodepos');
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        //autocomplete.bindTo('bounds', map);
+        //    autocomplete.setTypes(["address"]);
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+            //    alert(place.)
+            if (!place.geometry) {
+                // User entered the name of a Place that was not suggested and
+                // pressed the Enter key, or the Place Details request failed.
+                window.alert("No details available for input: '" + place.name + "'");
+                return;
+            }
+            var address = '';
+            if (place.address_components) {
+                address = [
+                    (place.address_components[6] && place.address_components[6].short_name ||
+                        '')
+                ].join(' ');
+            }
+            //hasil disini
+
+            var postalcode = place.address_components[6];
+            if (postalcode === undefined) {
+                $.alert({
+                    title: 'Info',
+                    content: "Maaf kodepos tidak ditemukan!"
+                });
+            } else {
+                postcode = postalcode.long_name;
+                kota = place.address_components[3].long_name;
+                getPost();
+            }
+
+        });
+    } //initMap
+
+    function getPost() {
+        var de = document.getElementById('kodepos').value = postcode;
+        function getKota() {
+            var param = {
+                xuserid: getCookie('iduser'),
+                xtoken: getCookie('token'),
+                xpostalcode: de,
+                xparam: 'getpostalcode',
+                xkodeuser: getCookie('email'),
+                xloginfrom: 'W',
+                xzona: getCookie('_zona')
+            };
+            $.post('https://www.exact.co.id/SE/myexweb.exgetdatapos?', param, function (data, status) {
+                var vdata = JSON.parse(data);
+                if (vdata.STATUS === 'OK') {
+                    var kotaresult = document.getElementById('kota').value = vdata.NAMA_KOTA;
+                } else {
+                    $.alert({
+                        title: 'Info',
+                        content: 'Maaf Kota belum dilayani!'
+                    });
+                }
+            });
+        };
+        getKota();
+        $('#cari').modal('hide');
+    }
+    $('#carikodepos').keypress(function (e) {
+        var key = e.which;
+        if (key == 13)  // the enter key code
+        {
+
+        }
+    }); //initMap
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr3NS3Tb_taWdVqNQFSTJ5TlvvhN9gV08&libraries=places&callback=initMap"
+    async defer></script>

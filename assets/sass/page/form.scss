@@ -1,0 +1,154 @@
+// Form
+.ico-alihinvoice {
+  width:30px;
+  height:30px;
+  background-image:url(../img/ico-alihinvoice.png);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:100%;
+}
+
+.ico-bukualamat {
+  width:30px;
+  height:30px;
+  background-image:url(../img/ico-bukualamat.png);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:100%;
+}
+
+
+.ico-volume {
+  width:30px;
+  height:30px;
+  background-image:url(../img/ico-volume.png);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:100%;
+  display:block;
+  margin:auto
+}
+
+
+.ico-dropshipper {
+  width:30px;
+  height:30px;
+  background-image:url(../img/ico-dropshipper.png);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:100%;
+}
+.menu-top-right-form ul li {
+  list-style:none;
+  float:left;
+  padding:5px 10px;
+  border-left:1px solid #ddd;
+  border-bottom:1px solid #ddd;
+  text-align:center;
+  width:33.333%;
+}
+.menu-top-right-form ul li a span {
+  width:30px;
+  height:30px;
+  display: inline-block;
+}
+.menu-top-right-form ul li a{
+  color: $green;
+    font-family: 'OpenSans-Regular',sans-serif;
+    font-size: 13px;
+}
+.menu-top-right-form {
+  width:100%;
+  float:right;
+  top:-1px;
+  position:relative;
+}
+.title-form h4, .sub-title-form h4 {
+  font-family: 'OpenSans-SemiBold',sans-serif;
+  margin: auto;
+  font-size: 18px;
+  padding: 20px 15px;
+  color: #686868;
+}
+.title-form-wrap  {
+  border-bottom:1px solid #ddd;
+  min-height:65px !important;
+
+}
+.title-form-h1 h1 {
+  font-family: 'OpenSans-SemiBold',sans-serif;
+  margin: auto;
+  font-size: 16px;
+  padding: 20px 0px;
+  color: #222;
+}
+.title-form-h1 {
+  border-bottom:1px solid #ddd;
+}
+.form-group-custom label{
+  font-family: 'OpenSans-Regular',sans-serif;
+  margin: auto;
+  font-size: 14px;
+  color:#4A4A4A;
+  padding:10px 0px;
+}
+.form-control-custom {
+  border-radius:0px !important;
+  box-shadow:none !important;
+  height:40px !important;
+  font-family: 'OpenSans-Regular',sans-serif;
+}
+.margin-left-15 {
+  margin-left:15px;
+}
+
+select:not([multiple]) {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-position:right 50%;
+    background-repeat: no-repeat;
+    background-image: url(../img/arrow-down.png);
+    padding: .5em;
+    padding-right: 1.5em;
+}
+.form-control-textarea-custom {
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    font-family: 'OpenSans-Regular',sans-serif;
+}
+textarea.form-control-textarea-custom {
+  resize: none;
+}
+.checkbox-custom label {
+  padding-left:0px !important
+}
+.caption {
+  padding:10px;
+  border-radius:8px;
+  background:#F8F6F6;
+  color:#686868;
+  height:40px;
+  text-align:center;
+  font-family: 'OpenSans-Regular',sans-serif;
+}
+.checkbox-custom a {
+  color:$green
+}
+.scrollbar-dynamic-form {
+    position: fixed;
+    overflow: scroll;
+    top: 121px;
+    bottom: 0;
+    padding-bottom:50px;
+}
+.form-left {
+  margin:15px auto;
+  padding-right: 25px !important;
+padding-left: 25px !important;
+}
+.form-right {
+  margin:15px auto;
+  border-left:1px solid #eee;
+  padding-right: 25px !important;
+padding-left: 25px !important;
+}

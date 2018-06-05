@@ -1,0 +1,221 @@
+<div ng-app="exact" ng-controller="penggunaController">
+    <div ng-include="'view/menu.html'">
+    </div>
+    <div class="title-form">
+        <h4>Trace</h4>
+    </div>
+    <div class="form-group-custom col-sm-2">
+        <select class="form-control form-control-custom" ng-init="getParamCari()" style="font-size: 12px;" ng-model="kolom">
+            <option value="">Semua</option>
+            <option ng-repeat="paramKirim in paramKirim" value="{{paramKirim.NAMA_KOLOM}}">{{paramKirim.DESKRIPSI}}</option>
+        </select>
+    </div>
+    <div class="col-sm-4 no-padding">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" class="form-control form-control-custom" placeholder="Enter text" ng-model="cari" ng-enter="getDataKiriman()">
+                <div class="input-group-btn">
+                    <button class="btn btn-normal" ng-click="getDataKiriman()">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-custom col-sm-2">
+        <select class="form-control form-control-custom" style="font-size: 12px;" ng-model="bayar">
+            <option value="">Semua</option>
+            <option value="COD">COD</option>
+            <option value="STAMP">Stamp</option>
+            <option value=",">Cash</option>
+            <option value="INVOICE">Invoice</option>
+            <option value="SAVING">Saving</option>
+        </select>
+    </div>
+    <div>
+        <button data-toggle="modal" data-target="#tambah" class="btn-orange2" style="float: right;margin-right: 3px;">TAMBAH</button>
+    </div>
+    <section class="table-dashboard-wrap">
+        <table wt-responsive-table>
+            <thead>
+                <tr>
+                    <th>
+                        No Kiriman
+                    </th>
+                    <th>
+                        Tipe Trace
+                    </th>
+                    <th>
+                        Asal
+                    </th>
+                    <th>
+                        Tujuan
+                    </th>
+                    <th>
+                        Tanggal
+                    </th>
+                    <th>
+                        Jam
+                    </th>
+                    <th>
+                        Message
+                    </th>
+                </tr>
+            </thead>
+            <tbody ng-init="getDataPengguna()">
+                <tr ng-repeat="DataPengguna in DataPengguna" style="font-size: 12px;">
+                    <!--                        <td>{{DataPengguna.NAMA}}</td>
+                                                <td>{{DataPengguna.NO_HP}}</td>
+                                                <td>{{DataPengguna.EMAIL}}</td>
+                                                <td>{{DataPengguna.JABATAN}}</td>
+                                                <td>{{DataPengguna.APP}}</td>
+                                                <td>{{DataPengguna.STATUS}}</td>-->
+                </tr>
+            </tbody>
+        </table>
+        <div class="clearfix"></div>
+    </section>
+    <section class="content-bottom-wrap">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-title width-100-smallscreen">
+            <p>
+                <span class="color-green">1</span> dari
+                <span class="color-green">40</span> halaman</p>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 width-100-smallscreen">
+            <div class="pagination-db">
+                <ul>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="active">1</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">2</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">3</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">4</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">5</a>
+                    </li>
+                    <li class="border-right-gray">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+
+    <!-- MODAL TOPUP -->
+    <div id="tambah" class="modal fade" role="dialog" ng-app="exact">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">BUAT PENGGUNA</h5>
+                </div>
+                <div class="modal-body" ng-controller="penggunaController">
+                    <form class="form-horizontal" role="form" ng-init="initPengguna()">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Email</label>
+                            <div class="col-sm-9                                ">
+                                <input type="text" class="form-control form-control-custom" id="textNamaLengkap" ng-model="email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3"></label>
+                            <div class="col-sm-9">
+                                <button type="submit" class="btn-orange2 btn-block" ng-click="checkEmail()">PERIKSA</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3 ">Nama</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control form-control-custom" id="nama" ng-model="nama">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3 ">No Ponsel</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control form-control-custom" id="ponsel" ng-model="noponsel">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3"> Jabatan</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control form-control-custom" ng- model="jabatan">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-click="getAkses()">
+                            <label class="control                                -label col-sm-3">Bagian Invoice</label>
+                            <div class="col-sm-9">
+                                <select class="form-control form-control-custom" ng-model="bagianinvoice">
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="divAkses">
+                            <label class="control-label col-sm-3">Akses </label>
+                            <div class="col-sm-9">
+                                <div class="radio" ng-repeat="dataAkses in dataAkses">
+                                    <label>
+                                        <input type="radio" name="optradio" value="{{dataAkses.KODE}}" ng-model="idaksesweb">{{dataAkses.DESKRIPSI}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3 col-form-label">App</label>
+                            <div class="col-sm-9">
+                                <div class="checkbox checkbox-custom">
+                                    <label>
+                                        <input type="checkbox" value="web" ng-app="web" ng-click="clickAppWeb()">
+                                        <span class="cr">
+                                            <i class="cr-icon glyphicon glyphicon-ok"></i>
+                                        </span>
+                                        Web
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" value="mobile" ng-app="mobile" ng-click="clickAppMobile()">
+                                        <span class="cr">
+                                            <i class="cr-icon glyphicon glyphicon-ok"></i>
+                                        </span>
+                                        Mobile
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 10px;margin-top: 10px;">
+                            <label class="col-sm-3"></label>
+                            <div class="col-sm-3">
+                                <button type="submit" class="btn-orange2">HAPUS</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn-orange2" ng-click="insertUpdate()" id="btnSimpan">SIMPAN</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

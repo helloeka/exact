@@ -1,0 +1,103 @@
+<!-- custom js 
+<script src="assets/controller/custom.js"></script>-->
+<style>
+    .img-file input{
+        display: block !important;
+        width: 0px !important;
+        height: 0px !important;
+        opacity: 0 !important;
+        overflow: hidden !important;
+    }
+    .div-control{
+        background-color: #F08B30;
+        margin-left: 10px;
+        border-radius: 3px;
+    }
+    .div-control h4{
+        font-size: 12px;
+        color: #ffffff;
+        background-color: #F08B30;
+    }
+</style>
+<div class="side-collapse-container" ng-app="exact" style="margin-top: 0px;" ng-controller="myProfileController">
+    <section class="content-menu-top scrollbar">
+        <div class="title-form-h1">
+            <h1></h1>
+        </div>
+        <div class="container" style="margin-bottom: 50px;margin-top: 20px;">
+            <div class="col-sm-9">
+                <div class="form-group-custom">
+                    <div class="form-group-custom">
+                        <div class="col-lg-3">
+                            <label class="img-file"><input type="file" id="file" ng-file-select="onFileSelect($files)" accept="image/*" ng-model="imageSrc" ng-click="open()">
+                                <img src="{{imageSrc}}" title="Browse Image" style="margin-left: 10px;width: 150px;height: 150px;border-radius: 360px;"/>
+                            </label>
+                            <button id="btnUpload" class="btn-orange2" style="width: 160px;" ng-click="upload()">Upload</button>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-9">
+                            <form class="form-horizontal">
+                                <div class="form-group-custom">
+                                    <label class="control-label col-sm-2">Nama</label>
+                                    <div class="col-sm-10">          
+                                        <input type="text" class="form-control-custom read2" id="nama" ng-model="nama" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom">
+                                    <label class="control-label col-sm-2">No Ponsel</label>
+                                    <div class="col-sm-10">          
+                                        <input type="text" class="form-control-custom read2" id="noponsel" ng-model="noponsel" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom">
+                                    <label class="control-label col-sm-2">Email</label>
+                                    <div class="col-sm-10">          
+                                        <input type="text" class="form-control-custom read2" id="email" ng-model="email" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom ">
+                                    <label class="control-label col-sm-2">Alamat</label>
+                                    <div class="col-sm-10">          
+                                        <textarea type="text" class="form-control-custom read2" col="3" id="alamat" ng-model="alamat" disabled></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group-custom">
+                    <button class="btn btn-orange2">My Exact Contact</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <div class="col-sm-3 div-control">
+            <div class="col-sm-6">
+                <a ui-sref="kontrol">
+                    <div class="icon-db-terkirim2"></div>
+                </a>
+                <h4>Terkirim</h4>
+            </div>
+        </div>
+        <div class="col-sm-3 div-control">
+            <div class="col-sm-6">
+                <a ui-sref="kontrol">
+                    <div class="icon-db-terkirim2"></div>
+                </a>
+                <h4>Transit</h4>
+            </div>
+        </div>
+        <div class="col-sm-3 div-control">
+            <div class="col-sm-6">
+                <a ui-sref="kontrol">
+                    <div class="icon-db-terkirim2"></div>
+                </a>
+                <h4>On Time Delivery</h4>
+            </div>
+        </div>
+    </div>
+</div>
+

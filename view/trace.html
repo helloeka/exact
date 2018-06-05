@@ -1,0 +1,75 @@
+<!-- custom js -->
+<script src="assets/controller/custom.js"></script>
+<div class="side-collapse-container" ng-app="exact" style="margin-top: 0px;" ng-controller="traceController">
+    <div ng-include="'view/menu.html'"></div>
+    <div class="title-form">
+        <h4>Trace</h4>
+    </div>
+    <section class="content-menu-top scrollbar" ng-init="hide()">
+        <form>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-left">
+                <div class="btn btn-success" style="border-radius: 0px;background-color: #8cde20">
+                    <div class="col-sm-3">
+                        <label>Total</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" id="cari" class="form-control form-control-custom" placeholder="Enter text">
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="input-group">                   
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-search" ng-click="cariTrace()"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <table wt-responsive-table ng-init="listTrace()" style="height:340px;">
+                    <tbody style="background-color: #e8e8e8;">
+                        <tr style="font-size: 12px;">
+                            <td>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-right">
+                <div class="form-group form-group-custom">
+                    <div class="btn btn-success" style="border-radius: 0px;background-color: #8cde20;">
+                        <div class="col-sm-2">
+                            <label>No Kiriman</label>
+                        </div>
+                        <div class="col-sm-8">
+
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="input-group">                   
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-paperclip"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <table wt-responsive-table style="height:300px;">
+                        <tbody style="background-color: #e8e8e8;">
+                            <tr style="font-size: 12px;">
+                                <td>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="input-group no-padding">
+                        <input type="text" class="form-control form-control-custom" placeholder="Enter text" ng-model="keterangan">
+                        <div class="input-group-btn">
+                            <button class="btn btn-normal">
+                                <i class="glyphicon glyphicon-send">&nbsp;SEND</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+

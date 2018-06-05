@@ -1,0 +1,152 @@
+<div ng-app="exact" ng-controller="lokasiController">
+    <div ng-include="'view/menu.html'">
+    </div>
+    <div class="title-form pull-left">
+        <h4>Drop Off Points & Smart Box</h4>
+    </div>
+    <div class="scrollbar-dynamic">
+        <section class="table-dashboard-wrap"  ng-init="lokasiDop()">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-custom" placeholder="Cari alamat /lokasi DOP" ng-model="cariAlamat" ng-enter="getAlamat()">
+                        <div class="input-group-btn">
+                            <button class="btn btn-normal" ng-click="getAlamat()">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table wt-responsive-table>
+                <thead>
+                    <tr>
+                        <th>
+                            No DOP
+                        </th>
+                        <th>
+                            Nama
+                        </th>
+                        <th>
+                            Alamat
+                        </th>
+                        <th>
+                            Jarak
+                        </th>
+                        <th>
+                            No Ponsel
+                        </th>
+                    </tr>
+                </thead>
+                <tbody ng-init="getDop()">
+                    <tr style="font-size: 12px;" ng-repeat="dataDop in dataAlamat" ng-click="pilih(dataDop)">
+                        <td>{{dataDop.ID_DOP}}</td>
+                        <td>{{dataDop.NAMA_USAHA}}</td>
+                        <td>{{dataDop.ALAMAT_DOP}}</td>
+                        <td>{{dataDop.JARAK | number:1}} Km</td>
+                        <td>{{dataDop.NO_TELP}}</td>
+                        <!--                        <td>{{dataDop.ACTIVE}}</td>-->
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clearfix"></div>
+        </section>
+    </div>
+    <section class="content-bottom-wrap">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-title width-100-smallscreen">
+            <p>
+                <span class="color-green">1</span> dari
+                <span class="color-green">40</span> halaman</p>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 width-100-smallscreen">
+            <div class="pagination-db">
+                <ul>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="active">1</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">2</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">3</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">4</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">5</a>
+                    </li>
+                    <li class="border-right-gray">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+</div>
+
+<!-- MODAL TOPUP -->
+<div id="pilih" class="modal fade" role="dialog" ng-app="exact" ng-controller="lokasiController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div id="zona-1">
+                        <p>
+                            Pilih drop off point exact terdekat sebagai “lokasi ambil di exact”
+                            bila anda tidak alamat saat delivery, atau pilih drop off point yang anda 
+                            kehendaki untuk semua kiriman yang akan di kirimkan kepada anda.                    
+                        </p>
+                        <br>
+                        <p>
+                            Kami akan menahan kiriman di lokasi pilihan, untuk diambil sesuai waktu yang anda kehendaki.
+                        </p>
+                        <div class="form-group">
+                            <label class="control-label col-sm-1"></label>
+                            <div class="col-sm-9">
+                                <div class="radio">
+                                    <label><input type="radio" name="optradio" ng-click="pilihan(1)">Hanya bila saya tidak dirumah</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="optradio" ng-click="pilihan(2)">Semua yang akan dikirimkan</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="zona-4">
+                        <p>
+                            Alamat anda di berada di kode pos “non-delivery”. pilih drop off point yang anda kehendaki 
+                            sebagai “lokasi ambil di exact” untuk semua kiriman yang akan di kirimkan kepada anda.                   
+                        </p>
+                        <br>
+                        <p>
+                            Kami akan menahan kiriman di lokasi pilihan, untuk diambil sesuai waktu yang anda kehendaki.
+                        </p>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px;margin-top: 10px;">
+                        <div class="col-sm-4">
+                            <button  class="btn-orange2" class="btn btn-default" data-dismiss="modal">Lain Kali</button>
+                        </div>
+                        <div class="col-sm-8">
+                            <button class="btn-orange2" style="float: right;"  class="btn btn-default" data-dismiss="modal">Pilih</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,226 @@
+<!-- custom js -->
+<script src="assets/controller/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" />
+<div class="side-collapse-container" ng-app="exact" style="margin-top: 0px;" ng-controller="lokasiController">
+    <section class="content-menu-top scrollbar" ng-init="getDop()">
+        <div class="title-form-h1" style="background-color: #A5CB42;color: #fff;">
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;Drop Off Point</h1>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4 no-padding-right">
+                <section class="table-dashboard-wrap">
+                    <div class="col-sm-12 no-padding">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-custom" placeholder="Masukan nomer DOP" ng-model="cari" ng-enter="getDataKiriman()">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-normal" ng-click="getDop()">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <style>
+                        .zoom {
+                            transition: transform .5s;
+                            -webkit-transition: all .5s;
+                            -moz-transition: all .5s;
+                            -o-transition: all .5s;
+                            transition: all .5s;
+                            width: 50px;
+                            height: 50px;
+                        }
+                        .zoom:hover {
+                            width: 100%;
+                            height: 200px;
+                            margin-bottom: 10px;
+                        }
+                        .tbl-custom{
+                            display: block;
+                            height: 490px;
+                            overflow-y: auto;  
+                        }
+
+                    </style>
+                    <table class="tbl-custom">
+                        <tbody>
+                            <tr ng-repeat="dataDop in dataDop| filter:cari">
+                                <td style="width: 100%;">
+                                    <div>
+                                    <img  src="{{dataDop.GAMBAR}}" class="zoom">
+                                    </div>                  
+                                    <b>{{dataDop.NAMA_DOP}}</b>
+                                    <p>{{dataDop.ALAMAT_DOP}}</p>
+                                    <p> Telp : {{dataDop.NO_TELP}}</p>
+                                    <p> Jam Buka : {{dataDop.JAM_BUKA}}</p>
+                                    <p> Jam Tutup : {{dataDop.JAM_TUTUP}}</p>
+                                    <p> Jarak : {{dataDop.JARAK| number:1}} Km</p>
+                                    <div>
+                                        <button id={{dataDop.ACTIVE}} class="btn btn-default" style="width: 100px;background-color: {{dataDop.ACTIVE}};color: white;">{{dataDop.ACTIVE_NAME}}</button>
+                                        <button class="btn btn-default" style="width: 130px;" ng-click="showMa()" >{{dataDop.IS_FREIGHT}}</button>
+                                        <button class="btn btn-default" ng-click="showRating(dataDop)"><i class="glyphicon glyphicon-star"></i>&nbsp;&nbsp; Rating</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="clearfix"></div>
+                </section>
+            </div>
+            <div class="col-sm-8 no-padding-left">
+                <style>
+                    #map {
+                        height: 550px;
+                        width: 100%;
+                        margin-left: 10px;
+                    }
+                    /* Optional: Makes the sample page fill the window. */
+                    html, body {
+                        height: 100%;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    #description {
+                        font-family: Roboto;
+                        font-size: 15px;
+                        font-weight: 300;
+                    }
+
+                    #infowindow-content .title {
+                        font-weight: bold;
+                    }
+
+                    #infowindow-content {
+                        display: none;
+                    }
+
+                    #map #infowindow-content {
+                        display: inline;
+                    }
+
+                    .pac-card {
+                        margin: 10px 10px 0 0;
+                        border-radius: 2px 0 0 2px;
+                        box-sizing: border-box;
+                        -moz-box-sizing: border-box;
+                        outline: none;
+                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                        background-color: #fff;
+                        font-family: Roboto;
+                    }
+
+                    #pac-container {
+                        padding-bottom: 12px;
+                        margin-right: 12px;
+                    }
+
+                    .pac-controls {
+                        display: inline-block;
+                        padding: 5px 11px;
+                    }
+
+                    .pac-controls label {
+                        font-family: Roboto;
+                        font-size: 13px;
+                        font-weight: 300;
+                    }
+
+                    #pac-input {
+                        background-color: #fff;
+                        font-family: Roboto;
+                        font-size: 15px;
+                        font-weight: 300;
+                        margin-left: 10px;
+                        padding: 0 11px 0 13px;
+                        text-overflow: ellipsis;
+                        width: 500px;
+                    }
+
+                    #pac-input:focus {
+                        border-color: #4d90fe;
+                    }
+
+                    #title {
+                        color: #fff;
+                        background-color: #4d90fe;
+                        font-size: 25px;
+                        font-weight: 500;
+                        padding: 6px 12px;
+                    }
+                    #target {
+                        width: 345px;
+                    }
+                </style>
+                <section class="table-dashboard-wrap">
+                    <form class="form-horizontal no-padding">
+                        <input id="pac-input" class="control form-control-custom" type="text" placeholder="Cari alamat /nama kota" ng-enter="getDop()">
+                        <div id="map"></div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- START DETAIL KIRIMAN -->
+<div id="detail" class="modal fade" role="dialog" ng-controller="lokasiController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <b>Detail DOP & BOX</b>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <tbody class="tbl-product" id="tabledetail">
+                        <tr>
+                            <td>
+                                <div>
+                                    <img id="gambar"  style="width:100%;height: 200px;">
+                                </div>
+                                <hr>
+                                <p><b id="nama_dop"></b></p>
+                                <p><b id="alamat_dop"></b></p>
+                                <p>Telp : <b id="no_tlp"></b></p>
+                                <p>Jam Buka : <b id="jam_buka"></b></p>
+                                <p>Jam Turup : <b id="jam_tutup"></b></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RATING -->
+<div id="rating" class="modal fade" role="dialog" ng-controller="lokasiController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3>Berikan rating anda untuk DOP</h3>
+            </div>
+            <div class="modal-body">     
+                <div>
+                    <input id="input-id" class="rating rating-loading" data-min="0" data-max="5" data-step="1" ng-model="rating"> 
+                </div>
+                <hr>
+                <div>
+                    <input ng-model="keterangan" placeholder="Keterangan" class="form-control form-control-custom" ng-model="keterangan" required> 
+                </div>
+                <br>
+                <div>
+                    <button class="btn-orange2 btn-block" ng-click="postRating()">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Replace the value of the key parameter with your own API key. -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr3NS3Tb_taWdVqNQFSTJ5TlvvhN9gV08&libraries=places&callback=initAutocompleteLokasi">
+</script>

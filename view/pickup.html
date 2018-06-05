@@ -1,0 +1,352 @@
+<div ng-app="exact" ng-controller="pickupController">
+    <div ng-include="'view/menu.html'">
+    </div>
+    <div class="title-form pull-left">
+        <h4>Pickup</h4>
+    </div>
+    <div class="scrollbar-dynamic">
+        <section class="table-dashboard-wrap">
+            <div class="form-group-custom col-sm-2">
+                <select class="form-control form-control-custom" ng-init="getParamCari()" style="font-size: 12px;" ng-model="kolom">
+                    <option value="">Semua</option>
+                    <option ng-repeat="paramKirim in paramKirim" value="{{paramKirim.NAMA_KOLOM}}">{{paramKirim.DESKRIPSI}}</option>
+                </select>
+            </div>
+            <div class="col-sm-4 no-padding">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-custom" placeholder="Enter text" ng-model="cari" ng-enter="getDataKiriman()">
+                        <div class="input-group-btn">
+                            <button class="btn btn-normal" ng-click="getDataKiriman()">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-custom col-sm-2">
+                <select class="form-control form-control-custom" style="font-size: 12px;" ng-model="status">
+                    <option value="">Semua</option>
+                    <option value="PICKUP ORDER">Pickup Order</option>
+                    <option value="DISPATCH">Dispatch</option>
+                    <option value="PICKUP">Pickup</option>
+                    <option value="BATAL">Batal</option>
+                </select>
+            </div>
+            <div>
+                <button ng-click="showPickup()" class="btn-orange2" style="float: right;margin-right: 3px;">PICKUP</button>
+            </div>
+            <table wt-responsive-table>
+                <thead>
+                    <tr>
+                        <th>
+                            No.Pick-Up
+                        </th>
+                        <th>
+                            Tanggal
+                        </th>
+                        <th>
+                            Jam
+                        </th>
+                        <th>
+                            Nama
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            PCS
+                        </th>
+                        <th>
+                            Berat
+                        </th>
+                        <th>
+                            Keterangan
+                        </th>
+                    </tr>
+                </thead>
+                <tbody ng-init="getListPickup()">
+                    <tr ng-repeat="p in dataPickup| filter:status" style="font-size: 12px;">
+                        <td>{{p.NO_PICKUP}}</td>
+                        <td>{{p.JAM_PERKIRAAN_PUP.substring(0, 10)}}</td>
+                        <td>{{p.JAM_TERCATAT.substring(10, 16)}}</td>
+                        <td>{{p.NAMA_USER}}</td>
+                        <td style="width: 100px;">
+                            <button class="btn btn-orange2 btn-sm" style="width: 120px;" ng-click="showDetail(p)">{{p.STATUS_TERAKHIR}}</button>
+                        </td>
+                        <td>{{p.PCS}}</td>
+                        <td>{{p.BERAT}} /Kg</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clearfix"></div>
+        </section>
+    </div>
+    <section class="content-bottom-wrap">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-title width-100-smallscreen">
+            <p>
+                <span class="color-green">1</span> dari
+                <span class="color-green">40</span> halaman</p>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 width-100-smallscreen">
+            <div class="pagination-db">
+                <ul>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="active">1</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">2</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">3</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">4</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">5</a>
+                    </li>
+                    <li class="border-right-gray">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+</div>
+<div id="tambah" class="modal fade" role="dialog" ng-app="exact" ng-controller="pickupController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <b class="modal-title">Silahkan catat paket yang belum tercatat</b>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="frmApparel">
+                    <div class="form-group">
+                        <label class="control-label col-sm-5">Jam siap Kiriman</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-custom" ng-model="jamsiap" placeholder="HH:MM:SS" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-5">Kg yang belum tercatat</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-custom" ng-model="berat" required>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-custom">
+                        <label>Alamat Lengkap</label>
+                        <textarea class="form-control input-sm form-control-textarea-custom" rows="2" id="alamat" ng-model="alamat" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"></label>
+                        <div class="col-sm-9">
+                            <button class="btn-orange2" style="float: right;" ng-click="postPickup()" data-dismiss="modal">PICKUP ORDER</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="detail" class="modal fade" role="dialog" ng-app="exact" ng-controller="pickupController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <b class="modal-title">Detail Pickup</b>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <style>
+                        .read {
+                            background: transparent;
+                            border: 0px;
+                            border-color: transparent;
+                            width: 100%;
+                        }
+                    </style>
+                    <tbody>
+                        <tr>
+                            <td style="width: 20%;">
+                                <div class="profile-wrap">
+                                    <div class="avatar">
+                                        <center>
+                                            <img src="dummy/avatar1.png">
+                                        </center>
+                                    </div>
+                                    <input type="text" id="nopickup" disabled class="read">
+                                    <input type="text" id="namakurir" disabled class="read">
+                                </div>
+                            </td>
+                            <td style="width: 80%;">
+                                <div class="title-form-h1">
+                                    <input type="text" id="pickuporder" disabled class="read">
+                                    <input type="text" id="berat" disabled class="read">
+                                </div>
+                                <div class="title-form-h1">
+                                    <input type="text" id="jam1" disabled class="read">
+                                    <input type="text" id="jam2" disabled class="read">
+                                    <input type="text" id="lokasi" disabled class="read">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="btn-group btn-group-justified">
+                    <a ng-click="showKeluhan(nopickup)" class="btn btn-orange2">Keluhan</a>
+                    <a class="btn btn-orange2">Lokasi Kurir</a>
+                    <a class="btn btn-orange2">Peringatkan Kurir</a>
+                    <a ng-click="showBatal()" class="btn btn-orange2">Batalkan</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="keluhan" class="modal fade" role="dialog" ng-app="exact" ng-controller="pickupController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <b class="modal-title">Keluhan</b>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped" ng-init="getKeluhan()">
+                    <tbody>
+                        <tr ng-repeat="listKeluhan in listKeluhan">
+                            <td style="width: 70px;">
+                                <img src="{{listKeluhan.LINK_ICON}}" class="img-product" alt="icon" />
+                            </td>
+                            <td>
+                                <p>
+                                    <b>{{listKeluhan.NAMA_KELUHAN}}</b>
+                                </p>
+                                <p>{{listKeluhan.GUIDE}}</p>
+                            </td>
+                            <td>
+                                <div class="radio" ng-model="kodekeluhan">
+                                    <label>
+                                        <input type="radio" name="keluhan" ng-model="$parent.keluhan" ng-value="{{listKeluhan.ID_KELUHAN}}" ng-click="pilihKeluhan(listKeluhan.ID_KELUHAN)"
+                                               />
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control form-control-custom" placeholder="Keterangan" ng-model="keterangan">
+                <div class="input-group-btn">
+                    <button class="btn btn-normal" ng-click="postKeluhan()" data-dismiss="modal">
+                        <i class="glyphicon glyphicon-send">&nbsp;SEND</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="batal" class="modal fade" role="dialog" ng-app="exact" ng-controller="pickupController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <b class="modal-title">Batalkan</b>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped" ng-init="getBatal()">
+                    <tbody>
+                        <tr ng-repeat="data in listBatal">
+                            <td>
+                                <p>
+                                    <b>{{data.NAMA_CANCEL}}</b>
+                                </p>
+                            </td>
+                            <td>
+                                <div class="radio" ng-model="kode">
+                                    <label>
+                                        <input type="radio" name="batal" ng-model="$parent.batal" ng-value="{{data.ID_CANCEL}}" ng-click="pilihBatal(data.ID_CANCEL)"
+                                               />
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control form-control-custom" placeholder="Keterangan" ng-model="keterangan">
+                <div class="input-group-btn">
+                    <button class="btn btn-normal" ng-click="postBatalkan()" data-dismiss="modal">
+                        <i class="glyphicon glyphicon-send">&nbsp;SEND</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="location" class="modal fade" role="dialog" ng-controller="pickupController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <b>PickUp Order</b>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <style>
+                            #map {
+                                height: 250px;
+                                width: 100%;
+                                margin-left: 1px;
+                                margin-right: 1px;
+                            }
+
+                            #title {
+                                color: #fff;
+                                background-color: #4d90fe;
+                                font-size: 25px;
+                                font-weight: 500;
+                                padding: 6px 12px;
+                            }
+
+                            #target {
+                                width: 345px;
+                            }
+                        </style>
+                        <div class="form-group form-group-custom col-sm-12">
+                            <div id="map"></div>
+                        </div>
+                        <div class="form-group form-group-custom col-sm-12">
+                            <label>Alamat Lengkap</label>
+                            <textarea class="form-control input-sm form-control-textarea-custom" rows="2" id="alamat" ng-model="alamat" minlength="10"
+                                      required></textarea>
+                        </div>
+                        <div class="form-group form-group-custom col-sm-12">
+                            <button class="btn btn-orange2" style="float: right;" ng-click="postPickup()" data-dismiss="modal"> PIKUP-ORDER</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr3NS3Tb_taWdVqNQFSTJ5TlvvhN9gV08&libraries=places&callback=Autocomplete">
+</script>

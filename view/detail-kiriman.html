@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div class="modal fade" ng-app="exact" ng-controller="kirimController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="close()"  data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Detail Kiriman</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="row no-padding">
+                            <div class="col-sm-6">
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4" style="font-weight: bold;">Nomor</label>
+                                    <div class="col-sm-8">          
+                                        <select class="form-control form-control-custom col-sm-12" style="font-size: 12px;" ng-model="nokiriman">
+                                            <option ng-repeat="data in listNoKiriman" value="{{data.ID_KIRIMAN}}">{{data.BERAT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Tgl Kirim</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="tanggalkirim" ng-model="tanggalkirim" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Pengguna</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="penguna" ng-model="pengguna" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Produk</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="produk" ng-model="produk" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Pembayaran</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="pembayaran" ng-model="pembayaran" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Total COD</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="totalcod" ng-model="totalcod" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4"></label>
+                                    <div class="col-sm-8">          
+                                        <button class="btn btn-orange2" style="float: right;">PRINT LABEL</button>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Janji Tiba</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="janjitiba" ng-model="janjitiba" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Service</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="service" ng-model="service" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">PCS</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="pcs" ng-model="pcs" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Berat</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="berat" ng-model="berat" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding" style="margin-top: 0px;">
+                            <div class="col-sm-12">
+                                <div class="title-form-h1">
+                                    <h1>PENERIMA</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Nama</label>
+                            <div class="col-sm-10">          
+                                <input type="text" class="form-control form-control-custom" id="namapenerima" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Perusahaan</label>
+                            <div class="col-sm-10">          
+                                <input type="text" class="form-control form-control-custom" id="perusahaanpenerima" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Alamat</label>
+                            <div class="col-sm-10">          
+                                <textarea type="text" class="form-control form-control-custom" id="alamatpenerima" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2 col-form-label">Kode POS</label>
+                            <div class="col-sm-2 no-padding-right">
+                                <input type="text" class="form-control form-control-custom" id="kodepospenerima" disabled>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control form-control-custom" id="kotapenerima" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">No Telp</label>
+                            <div class="col-sm-10">          
+                                <input type="text" class="form-control form-control-custom" id="notlppenerima" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding" style="margin-top: 0px;">
+                            <div class="col-sm-12">
+                                <div class="title-form-h1">
+                                    <h1>PENGIRIM</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Nama</label>
+                            <div class="col-sm-10">          
+                                <input type="text" class="form-control form-control-custom" id="namapengirim" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Perusahaan</label>
+                            <div class="col-sm-10">          
+                                <input type="text" class="form-control form-control-custom" id="perusahaanpengirim" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Alamat</label>
+                            <div class="col-sm-10">          
+                                <textarea type="text" class="form-control form-control-custom" id="alamatpengirim" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2 col-form-label">Kode POS</label>
+                            <div class="col-sm-2 no-padding-right">
+                                <input type="text" class="form-control form-control-custom" id="kodepospengirim" disabled>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control form-control-custom" id="kotapengirim" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">No Telp</label>
+                            <div class="col-sm-10">          
+                                <input type="text" class="form-control form-control-custom" id="notlppengirim" disabled>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

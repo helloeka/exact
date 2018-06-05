@@ -1,0 +1,261 @@
+<div ng-app="exact" ng-controller="mySavingCorpController">
+    <div ng-include="'view/menu.html'">
+    </div>
+    <div class="title-form pull-left">
+        <h4>My Businnes Saving</h4>
+    </div>
+    <div class="scrollbar-dynamic">
+        <section class="table-dashboard-wrap">
+            <div class="form-group col-sm-2">
+                <input type="date" class="form-control form-control-custom">
+            </div>
+            <div class="form-group col-sm-1">
+                <div class="input-group">
+                    <input type="date" class="form-control form-control-custom">
+                    <div class="input-group-btn">
+                        <button class="btn btn-normal">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button data-toggle="modal" data-target="#keluhan" class="btn-orange2" style="float: right;margin-right: 3px;">KELUHAN</button>
+                <button data-toggle="modal" data-target="#cashout" class="btn-orange2" style="float: right;margin-right: 3px;">CASH OUT</button>
+                <button data-toggle="modal" data-target="#topup" class="btn-orange2" style="float: right;margin-right: 3px;">TOPUP</button>
+            </div>
+            <table wt-responsive-table ng-init="getHistroy()">
+                <thead>
+                    <tr>
+                        <th>
+                            No Transaksi
+                        </th>
+                        <th>
+                            ID Topup
+                        </th>
+                        <th>
+                            Tanggal
+                        </th>
+                        <th>
+                            Tanggal Request
+                        </th>
+                        <th>
+                            Nominal
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="history in history">
+                        <td>{{history.KODE_TRANSAKSI}}</td>
+                        <td>{{history.ID_TOP_UP}}</td>
+                        <td>{{history.TANGGAL_TRANSAKSI}}</td>
+                        <td>{{history.TANGGAL_REQUEST}}</td>
+                        <td>{{history.NOMINAL_REQUEST}}</td>
+                        <td>{{history.NOMINAL_TRANSFER}}</td>
+                        <td>{{history.STATUS_TRANS_TOPUP}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clearfix"></div>
+    </div>
+    <section class="content-bottom-wrap">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-title width-100-smallscreen">
+            <p>
+                <span class="color-green">1</span> dari
+                <span class="color-green">40</span> halaman</p>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 width-100-smallscreen">
+            <div class="pagination-db">
+                <ul>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="active">1</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">2</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">3</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">4</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">5</a>
+                    </li>
+                    <li class="border-right-gray">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+
+    <!-- MODAL TOPUP -->
+    <div id="topup" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">TOPUP</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group" ng-init="getDataBank()">
+                            <label class="control-label col-sm-3">Transfer Bank</label>
+                            <div class="col-sm-8">
+                                <select class="form-control form-control-custom" ng-model="bank">
+                                    <option value="" selected disabled>Please select</option>
+                                    <option ng-repeat="bank in DataBank" value="{{bank.ID_BANK}}">{{bank.NAMA_BANK}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" >No Rekening</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" placeholder="987654xxxx" ng-model="norekening">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Nama Rekening</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" placeholder="Nama Rekening" ng-model="namarekening">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" >Nominal</label>
+                            <div class="col-sm-8">          
+                                <input type="number" class="form-control form-control-custom" ng-model="nominal">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="pwd">Jumlah Transfer</label>
+                            <div class="col-sm-8">          
+                                <input type="number" class="form-control form-control-custom" placeholder="0" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px;margin-bottom: 10px;">       
+                            <div class="col-sm-9">
+                                <label>Mohon Transfer Sebelum : hh:mm</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn-orange2" style="float: right;" ng-click="topup()">SIMPAN</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CASHOUT -->
+    <div id="cashout" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">CASH OUT</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="pwd">Bank</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" >Nominal</label>
+                            <div class="col-sm-8">          
+                                <input type="number" class="form-control form-control-custom" ng-model="nominal" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" >Biaya Transfer</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" placeholder="0" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="pwd">Total Cash Out</label>
+                            <div class="col-sm-8">          
+                                <input type="text" class="form-control form-control-custom" placeholder="0" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px;margin-bottom: 10px;">       
+                            <div class="col-sm-9">
+                                <label>Transfer Akan Dilakukan Max 24 Jam</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn-orange2" style="float: right;" ng-click="cashout()">SIMPAN</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL TOPUP -->
+</div>
+<!-- KELUHAN- START -->
+<div id="keluhan" class="modal fade" role="dialog" ng-app="exact" ng-controller="pickupController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <b class="modal-title">Keluhan</b>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped" ng-init="getKeluhan()">
+                    <tbody>
+                        <tr ng-repeat="listKeluhan in listKeluhan">
+                            <td style="width: 70px;">
+                                <img src="{{listKeluhan.LINK_ICON}}" class="img-product" alt="icon"/>
+                            </td>
+                            <td>
+                                <p><b>{{listKeluhan.NAMA_KELUHAN}}</b></p>
+                                <p>{{listKeluhan.GUIDE}}</p>
+                            </td>
+                            <td>
+                                <div class="radio" ng-model="kodekeluhan">
+                                    <label><input type="radio" name="keluhan" ng-model="$parent.keluhan" ng-value="{{listKeluhan.ID_KELUHAN}}" ng-click="pilihKeluhan(listKeluhan.ID_KELUHAN)"/></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control form-control-custom" placeholder="Keterangan" ng-model="keterangan">
+                <div class="input-group-btn">
+                    <button class="btn btn-normal" ng-click="postKeluhan()">
+                        <i class="glyphicon glyphicon-send">&nbsp;SEND</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

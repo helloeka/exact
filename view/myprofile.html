@@ -1,0 +1,102 @@
+<!-- custom js 
+<script src="assets/controller/custom.js"></script>-->
+<div class="side-collapse-container" ng-app="exact" style="margin-top: 0px;" ng-controller="myProfileController">
+    <section class="content-menu-top scrollbar">
+        <form>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-left">
+                <div class="title-form-h1">
+                    <h1>Data Dasar</h1>
+                </div>
+                <div class="form-group-custom">
+                    <label>Nama Lengkap</label>
+                    <input type="text" class="form-control input-sm form-control-custom" ng-model="namaLengkap">
+                </div>
+                <div class="form-group-custom">
+                    <label>No Ponsel</label>
+                    <input type="text" class="form-control input-sm form-control-custom" placeholder="62+" ng-model="noPonsel">
+                </div>
+                <div class="form-group-custom">
+                    <label>Email</label>
+                    <input type="text" class="form-control input-sm form-control-custom" ng-model="email">
+                </div>
+                <div class="form-group-custom">
+                    <label>Alamat</label>
+                    <textarea type="text" class="form-control input-sm form-control-custom" rows="3" ng-model="alamat"></textarea>
+                </div>
+                <div class="form-group form-group-custom">
+                    <label>Kode POS</label>
+                    <input type="text" class="form-control  input-sm form-control-custom" ng-model="kodePos">
+                </div>
+
+                <div class="title-form-h1">
+                    <h1>Data Tambahan</h1>
+                </div>
+                <div class="form-group-custom">
+                    <label>Tanggal Lahir</label>
+                    <input type="tex" class="form-control input-sm form-control-custom" ng-model="tanggalLahir" placeholder="yyyy-MM-">
+                </div>
+                <div class="form-group-custom" ng-init="getDataPekerjaan()">
+                    <label>Pekerjaan</label>
+                    <select class="form-control form-control-custom" ng-model="pekerjaan">
+                        <option value="" selected disabled>Please select</option>
+                        <option ng-repeat="p in dataPekerjaan" value="{{p.ID_PEKERJAAN}}">{{p.NAMA_PEKERJAAN}}</option>
+                    </select>
+                </div>
+                <div class="form-group-custom">
+                    <label>Gender</label>
+                    <select class="form-control form-control-custom" ng-model="gender">
+                        <option value="" selected disabled>Please select</option>
+                        <option value="F">Female</option>
+                        <option value="M">Male</option>
+                        <option value="O">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-right">
+                <div class="form-group-custom">
+                    <label>Kebiasaan Kirim</label>
+                    <select class="form-control form-control-custom" ng-model="keniasaanKirim">
+                        <option value="" selected disabled>Please select</option>
+                        <option>Harian</option>
+                        <option>Mingguan</option>
+                        <option>Bulanan</option>
+                        <option>Lainnya</option>
+                    </select>
+                </div>
+                <div class="form-group-custom">
+                    <label>Guna Layanan</label>
+                    <select class="form-control form-control-custom" ng-model="gunaLayanan">
+                        <option value="" selected disabled>Please select</option>
+                        <option>Personal</option>
+                        <option>Usaha</option>
+                    </select>
+                </div>
+                <div class="title-form-h1">
+                    <h1>Data Rekening</h1>
+                </div>
+                <div class="form-group-custom">
+                    <label>Nama</label>
+                    <input type="text" class="form-control input-sm form-control-custom" ng-model="namaRekening">
+                </div>
+                <div class="form-group-custom" id="divCategory" ng-init="getMasterBank()">
+                    <label>Bank</label>
+                    <select class="form-control form-control-custom" ng-model="bank">
+                        <option value="" selected disabled>Please select</option>
+                        <option ng-repeat="bank in DataBank" value="{{bank.ID_BANK}}">{{bank.NAMA_BANK}}</option>
+                    </select>
+                </div>
+                <div class="form-group-custom">
+                    <label>No Rekening</label>
+                    <input type="text" class="form-control input-sm form-control-custom" ng-model="noRekening">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+                <div class="caption"></div>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                <button class="btn-orange2 width-100 margin-top-15-sm" ng-click="save()">Simpan</button>
+            </div>
+        </form>
+    </section>
+</div>
+

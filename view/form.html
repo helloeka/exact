@@ -1,0 +1,250 @@
+<!-- custom js -->
+<script src="assets/controller/custom.js"></script>
+<div class="side-collapse-container">
+  <menu>
+      <div class="container-fluid no-padding  exact-navbar">
+          <button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle-custom-db pull-left exact-nav-bar">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+          </button>
+          <a href="javascript:void(0)" class="hide-desktop">
+            <div class="logo"></div>
+          </a>
+        <div class="clearfix"></div>
+      </div>
+      <div class="bg-menu-mobile side-collapse in">
+        <nav role="navigation" class="navbar-collapse no-padding">
+          <div class="menu-side">
+            <div class="profile-wrap">
+              <div class="avatar">
+                <center><img src="dummy/avatar1.png"></center>
+              </div>
+              <h4>Permata Putri</h4>
+              <p>Latest Login <br>
+              Saturday, November 25 2017. 23.12</p>
+            </div>
+            <ul class="nav navbar-nav exact-dbmain-menu navbar-right">
+                <li class="separator"></li>
+                <li><a href="javascript:void(0)" ui-sref="home" class="active">Home</a></li>
+                <li class="separator"></li>
+                <li><a href="javascript:void(0)">Akun</a></li>
+                <li class="separator"></li>
+                <li><a href="javascript:void(0)">Lokasi Ambil</a></li>
+                <li><a href="javascript:void(0)">My exact contact</a></li>
+                <li><a href="javascript:void(0)">My saving</a></li>
+                <li><a href="javascript:void(0)">My voucher</a></li>
+                <li><a href="javascript:void(0)">My point reward</a></li>
+                <li><a href="javascript:void(0)">Push notifikasi</a></li>
+                <li><a href="javascript:void(0)">Promo</a></li>
+                <li><a href="javascript:void(0)">Pusat bantuan</a></li>
+                <li class="separator"></li>
+                <li><a href="javascript:void(0)">Sign Out</a></li>
+            </ul>
+          </div>
+
+        </nav>
+      </div>
+
+      <div class="clearfix"></div>
+  </menu>
+  <section class="side-right">
+    <div class="overlay-block"></div>
+    <header class="db-header-wrap">
+      <div class="top-menu-wrap">
+        <div class="container-fluid">
+          <div class="col-xs-12 col-sm-3  col-md-3 col-lg-3 logo-dashboard no-padding">
+            <div class=" logo-wrap  navbar-left pull-left">
+            <a href="javascript:void(0)">
+                 <div class="logo"></div>
+            </a>
+            </div>
+          </div>
+          <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6 search-top-bar">
+            <div class="input-group search-bar-top">
+              <input type="text" class="form-control form-custom" name="NoKiriman" placeholder="No Kiriman">
+              <button class="btn btn-search-custom-bar" type="button"><span class="icon-ico-search"></span></button>
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3 menu-bar-top-right no-padding">
+            <div class="top-menu-right">
+              <ul class=" exact-dbmenu-right  navbar-right">
+                <li><a href="javascript:void(0)"><div class="ico-barcode"></div></a></li>
+                <li><a href="javascript:void(0)"><div class="ico-notifikasi"></div></a></li>
+                <li><a href="javascript:void(0)"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <content>
+      <section class="content-menu-top">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 title-form-wrap no-padding">
+          <div class="title-form pull-left">
+            <h4>Kirim</h4>
+          </div>
+          <div class="sub-title-form pull-right">
+            <h4>My Saving : IDR</h4>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 no-padding">
+          <div class="menu-top-right-form">
+            <ul>
+              <li><a href="#"><span class="ico-dropshipper"></span><br>Drop Shipper</a></li>
+              <li><a href="#"><span class="ico-alihinvoice"></span><br>Alih Invoice</a></li>
+              <li><a href="#"><span class="ico-bukualamat"></span><br>Buku Alamat</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <div data-ng-controller="SimpleController">
+        <div class="scrollbar-dynamic-form">
+            <form>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-left">
+                <div class="title-form-h1">
+                  <h1>1. Informasi Pengiriman</h1>
+                </div>
+                <div class="form-group form-group-custom">
+                   <label>Nama Pengirim</label>
+                   <input type="text" class="form-control form-control-custom"  placeholder="Nama Pengirim">
+                </div>
+                <div class="title-form-h1">
+                  <h1>2. Tujuan Kirim</h1>
+                </div>
+                <button class="btn-green width-100 margin-top10">Cari Kode Pos Tujuan</button>
+                <div class="form-group form-group-custom margin-top-58">
+                   <label>Kode Pos Tujuan</label>
+                   <input type="text" class="form-control form-control-custom"  placeholder="Nama Pengirim">
+                </div>
+                <div class="form-group form-group-custom">
+                   <label>Nama Perusahaan</label>
+                   <input type="text" class="form-control form-control-custom"  placeholder="Nama Perusahaan">
+                </div>
+                <div class="form-group form-group-custom">
+                   <label>Nama Penerima</label>
+                   <input type="text" class="form-control form-control-custom"  placeholder="Nama Penerima">
+                </div>
+                <div class="form-group form-group-custom">
+                   <label>No Ponsel/Telp</label>
+                   <input type="text" class="form-control form-control-custom"  placeholder="No Ponsel (+62)">
+                </div>
+                <div class="form-group form-group-custom">
+                   <label>Bagian/Departemen</label>
+                   <input type="text" class="form-control form-control-custom"  placeholder="Nama Departemen/Bagian">
+                </div>
+                <div class="form-group form-group-custom">
+                   <label>Alamat</label>
+                  <textarea class="form-control form-control-textarea-custom" rows="2">
+                  </textarea>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-right">
+                <div class="title-form-h1">
+                  <h1>3. Jumlah & Berat Paket</h1>
+                </div>
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 no-padding">
+                  <div class="form-group form-group-custom padding-left-15">
+                     <label>Jumlah Paket</label>
+                     <select class="form-control form-control-custom">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                  </div>
+                </div>
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 no-padding">
+                  <div class="form-group form-group-custom margin-left-15">
+                     <label>Berat</label>
+                     <div class="clearfix"></div>
+                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                       <input type="text" class="form-control form-control-custom"  placeholder="">
+                     </div>
+                      <fieldset disabled>
+                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                       <input type="text" class="form-control form-control-custom"  placeholder="">
+                     </div>
+                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                       <input type="text" class="form-control form-control-custom"  placeholder="">
+                     </div>
+                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 no-padding">
+                       <input type="text" class="form-control form-control-custom"  placeholder="">
+                     </div>
+                     </fieldset>
+                  </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 no-padding">
+                  <div class="form-group form-group-custom">
+                     <label>Volume</label>
+                     <button class="btn-green-ico width-100"><span class="ico-volume"></span></button>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="title-form-h1">
+                  <h1>4. Product & Services</h1>
+                </div>
+                <button class="btn-green width-100 margin-top10">Pilih Tanggal Tiba - Produk </button>
+                <div class="title-form-h1">
+                  <h1>5. Isi Kiriman</h1>
+                </div>
+                <div class="form-group form-group-custom">
+                   <label>Isi Kiriman</label>
+                   <select class="form-control form-control-custom">
+                      <option>Bila Produk udara</option>
+                      <option>produk 1</option>
+                      <option>produk 2</option>
+                      <option>produk 3</option>
+                      <option>produk 4</option>
+                    </select>
+                </div>
+                <div class="form-group form-group-custom">
+                   <label>Kategori Isi Kiriman</label>
+                   <select class="form-control form-control-custom">
+                      <option>Elektronik (bila dari freeport ke non freeport)</option>
+                      <option>Elektronik</option>
+                      <option>Non Elektronik</option>
+                    </select>
+                </div>
+                <div class="form-group form-group-custom">
+                   <label>Nilai Bea Cukai Kiriman</label>
+                   <input type="text" class="form-control form-control-custom"  placeholder="Bila non Dokumen">
+                </div>
+                <div class="title-form-h1">
+                  <h1>6. Pembayaran</h1>
+                </div>
+                <div class="form-group form-group-custom">
+                   <label>Jenis Pemabayaran</label>
+                   <select class="form-control form-control-custom">
+                      <option>Cash</option>
+                      <option>Kartu Kredit</option>
+                      <option>Via ATAM</option>
+                      <option>Internet Banking</option>
+                    </select>
+                </div>
+                <div class="form-group form-group-custom">
+                   <label>Bagian Inv</label>
+                   <select class="form-control form-control-custom">
+                      <option>Bagian Inv</option>
+                    </select>
+                </div>
+                <div class="checkbox checkbox-custom">
+                  <label>
+                   <input type="checkbox" value="">
+                   <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                   Setuju dengan <a href="#">Syarat & Ketentuan pengiriman</a>
+                   </label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+                <div class="caption">Tempelkan Label Kiriman di paket yang sesuai</div>
+              </div>
+              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                <button class="btn-orange2 width-100 margin-top-15-sm">Kirim</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </content>
+  </section>
+</div>

@@ -1,0 +1,323 @@
+<div ng-app="exact" ng-controller="kontrolController">
+    <div ng-include="'view/menu.html'">
+    </div>
+    <div class="title-form pull-left">
+        <h4>History Kiriman</h4>
+    </div>
+    <div class="scrollbar-dynamic">
+        <section class="table-dashboard-wrap" ng-init="getDetailTrack()">
+            <div class="form-group col-sm-3">
+                <select class="form-control form-control-custom" id="idkiriman"  style="font-size: 12px;" ng-model="jumlah">
+                    <option value="" disabled="true">--- Select an option ---</option>
+                    <option ng-selected= "{{dataTracking.ID_KIRIMAN == jumlah}}" ng-repeat="dataTracking in dataTracking" value="{{dataTracking.ID_KIRIMAN}}">{{dataTracking.ID_KIRIMAN}}</option>
+                </select>
+            </div>
+            <div>
+                <button ng-click="showLayanan()" class="btn-orange2" style="float: right;margin-right: 3px;">UBAH LAYANAN</button>
+            </div>
+            <div>
+                <button ng-click="showKeluhan()" class="btn-orange2" style="float: right;margin-right: 3px;">KELUHAN</button>
+            </div>
+            <div>
+                <button ng-click="showInfoKiriman()" class="btn-orange2" style="float: right;margin-right: 3px;">INFO KIRIMAN</button>
+            </div>
+            <section class="table-dashboard-wrap">
+                <table wt-responsive-table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Lokasi
+                            </th>
+                            <th>
+                                Tanggal
+                            </th>
+                            <th>
+                                Jam
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Keterangan 1
+                            </th>
+                            <th>
+                                Keterangan 2
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="p in dataTracking| filter:jumlah:ID_KIRIMAN" style="font-size: 12px;">
+                            <td>{{p.LIST_TRACKING[$index].KOTA_STATUS}}</td>     
+                            <td>{{p.LIST_TRACKING[$index].TANGGAL}}</td>   
+                            <td>{{p.LIST_TRACKING[$index].JAM | date:"hh:mm"}}</td>
+                            <td>{{p.LIST_TRACKING[$index].STATUS_AKTIFITAS}}</td>
+                            <td>{{p.LIST_TRACKING[$index].KETERANGAN[0]}}</td>
+                            <td>{{p.LIST_TRACKING[$index].KETERANGAN[1]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="clearfix"></div>
+            </section>
+    </div>
+    <section class="content-bottom-wrap">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-title width-100-smallscreen">
+            <p>
+                <span class="color-green">1</span> dari
+                <span class="color-green">40</span> halaman</p>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 width-100-smallscreen">
+            <div class="pagination-db">
+                <ul>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="active">1</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">2</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">3</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">4</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">5</a>
+                    </li>
+                    <li class="border-right-gray">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+</div>
+<div id="keluhan" class="modal fade" role="dialog" ng-app="exact" ng-controller="kontrolController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <b class="modal-title">Keluhan</b>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped" ng-init="getKeluhan()">
+                    <tbody>
+                        <tr ng-repeat="listKeluhan in listKeluhan">
+                            <td style="width: 70px;">
+                                <img src="{{listKeluhan.LINK_ICON}}" class="img-product" alt="icon"/>
+                            </td>
+                            <td>
+                                <p><b>{{listKeluhan.NAMA_KELUHAN}}</b></p>
+                                <p>{{listKeluhan.GUIDE}}</p>
+                            </td>
+                            <td>
+                                <div class="radio" ng-model="kodekeluhan">
+                                    <label><input type="radio" name="keluhan" ng-model="$parent.keluhan" ng-value="{{listKeluhan.ID_KELUHAN}}" ng-click="pilihKeluhan(listKeluhan.ID_KELUHAN)"/></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control form-control-custom" placeholder="Keterangan" ng-model="keterangan">
+                <div class="input-group-btn">
+                    <button class="btn btn-normal" ng-click="postKeluhan()"  data-dismiss="modal">
+                        <i class="glyphicon glyphicon-send">&nbsp;SEND</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="layanan" class="modal fade" role="dialog" ng-app="exact" ng-controller="kontrolController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <b class="modal-title">Ubah Layanan</b>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped" ng-init="getLayanan()">
+                    <tbody>
+                        <tr ng-repeat="listLayanan  in listLayanan">
+                            <td style="width: 70px;">
+                                <img src="{{listLayanan.LINK_ICON}}" class="img-product" alt="icon"/>
+                            </td>
+                            <td>
+                                <p><b>{{listLayanan.NAMA_LAYANAN}}</b></p>
+                                <p>{{listLayanan.GUIDE}}</p>
+                            </td>
+                            <td>
+                                <div class="radio" ng-model="idlayanan">
+                                    <label><input type="radio" name="layanan" ng-model="$parent.layanan" ng-value="{{listLayanan.ID_LAYANAN}}" ng-click="pilihLayanan(listLayanan.ID_LAYANAN)"/></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control form-control-custom" placeholder="Keterangan" ng-model="keterangan">
+                <div class="input-group-btn">
+                    <button class="btn btn-normal" ng-click="postLayanan()" data-dismiss="modal">
+                        <i class="glyphicon glyphicon-send">&nbsp;SEND</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="infokiriman" class="modal fade" role="dialog" ng-app="exact" ng-controller="kontrolController">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group-custom no-padding" style="margin-top: 0px;">
+                            <div class="col-sm-12">
+                                <div class="title-form-h1">
+                                    <h1>INFORMASI KIRIMAN</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-padding">
+                            <div class="col-sm-6">
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Tgl Kirim</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="tanggalkirim" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Produk</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="produk" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Pembayaran</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="pembayaran" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Janji Tiba</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="janjitiba" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Pcs/Berat</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="pcsberat" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group-custom no-padding">
+                                    <label class="control-label col-sm-4">Total COD</label>
+                                    <div class="col-sm-8">          
+                                        <input type="text" class="form-control-custom" id="totalcod" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding" style="margin-top: 0px;">
+                            <div class="col-sm-12">
+                                <div class="title-form-h1">
+                                    <h1>PENERIMA</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Nama</label>
+                            <div class="col-sm-10">          
+                                <input type="text" class="form-control form-control-custom" id="namapenerima" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Perusahaan</label>
+                            <div class="col-sm-10">          
+                                <input type="text" class="form-control form-control-custom" id="perusahaanpenerima" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Alamat</label>
+                            <div class="col-sm-10">          
+                                <textarea type="text" class="form-control form-control-custom" id="alamatpenerima" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2 col-form-label">Kode POS</label>
+                            <div class="col-sm-2 no-padding-right">
+                                <input type="text" class="form-control form-control-custom" id="kodepospenerima" disabled>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control form-control-custom" id="kotapenerima" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">No Telp</label>
+                            <div class="col-sm-10">          
+                                <input type="text" class="form-control form-control-custom" id="notlppenerima" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding" style="margin-top: 0px;">
+                            <div class="col-sm-12">
+                                <div class="title-form-h1">
+                                    <h1>PENGIRIM</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Nama</label>
+                            <div class="col-sm-10">          
+                                <input type="text" class="form-control form-control-custom" id="namapengirim" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Perusahaan</label>
+                            <div class="col-sm-10">          
+                                <input type="text" class="form-control form-control-custom" id="perusahaanpengirim" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">Alamat</label>
+                            <div class="col-sm-10">          
+                                <textarea type="text" class="form-control form-control-custom" id="alamatpengirim" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2 col-form-label">Kode POS</label>
+                            <div class="col-sm-2 no-padding-right">
+                                <input type="text" class="form-control form-control-custom" id="kodepospengirim" disabled>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control form-control-custom" id="kotapengirim" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group-custom no-padding">
+                            <label class="control-label col-sm-2">No Telp</label>
+                            <div class="col-sm-10">          
+                                <input type="text" class="form-control form-control-custom" id="notlppengirim" disabled>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
